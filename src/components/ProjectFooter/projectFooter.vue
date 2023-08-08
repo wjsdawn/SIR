@@ -1,6 +1,6 @@
 <template>
     <div class="projectFooter">
-        <h1>地址：https://github.com/Guijuan/208-project-template</h1>
+
     </div>
 </template>
 <script>

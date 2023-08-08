@@ -3,21 +3,21 @@
     flex-direction: column;
 }
 .top{
-    flex: 1;
+    flex: 0.3;
     border: 1px solid #666666;
     margin-bottom: -1px;
 }
 .middle{
-    flex: 7;
+    flex: 6;
     display: flex;
     border: 1px solid #666666;
 }
 .middle > .middle-left{
-    flex: 1;
+    flex: 2.5;
     border: 1px solid #666666;
 }
 .middle > .middle-middle{
-    flex: 1;
+    flex: 4.5;
     border: 1px solid #666666;
 }
 .middle > .middle-right{
@@ -25,7 +25,7 @@
     border: 1px solid #666666;
 }
 .bottom{
-    flex: 1;
+    flex: 2;
     border: 1px solid #666666;
     margin-top: -1px;
 }

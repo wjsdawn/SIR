@@ -1,12 +1,11 @@
 <template>
-  <div class="pieChart">
+  <div class="statusBlue">
 <!--    <h1>{{ msg }}</h1>-->
 <!--    <p>{{ pieChartData && pieChartData[0] }}</p>-->
-    <div class="pieChart-header">
-      <h1>pieChart(后端获取数据若缺省则使用默认值)</h1>
-      <h1>echarts绘制</h1>
+    <div class="statusCanvas-header">
+      <div id="statusCanvas-title">Model</div>
     </div>
-    <div class="pieChart-container" id="pieChart-container">
+    <div class="blue-container">
         <svg id="blue-editor" style="width: 100%;height: 100%" @dblclick="statusCanvasClick"></svg>
     </div>
   </div>
@@ -24,12 +23,13 @@ export default {
   },
   data() {
     return{
-
+      statusComponentList:[],
     }
   },
   methods:{
 
     statusCanvasClick(e){
+      let that = this;
       // 线条绘制
       // console.log("statusCanvasClick点击")
       // console.log(e)
@@ -69,20 +69,26 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.pieChart{
+.statusBlue{
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-.pieChart>.pieChart-header{
-  flex: 1;
+.statusBlue>.statusCanvas-header{
+  flex: 0.2;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-.pieChart>.pieChart-container{
+.statusBlue>.blue-container{
   flex: 4;
+}
+#statusCanvas-title{
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    font-size: 1.5em;
 }
 </style>

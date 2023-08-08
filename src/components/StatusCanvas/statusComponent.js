@@ -19,8 +19,8 @@ export default class statusComponent {
     this.x = 150;
     this.y = 150;
     this.componentOptions = [{
-      rectHeight: 150,
-      rectWidth: 180,
+      rectHeight: 75,
+      rectWidth: 90,
       rectFill:that.color,
       circleRadius: 5,
       circleFill: "#FFFFFF"
@@ -58,7 +58,7 @@ export default class statusComponent {
       .attr('y',that.y)
       .attr('width',d=>d.rectWidth)
       .attr('height',d=>d.rectHeight)
-      .attr('fill','#b3aeae')
+      .attr('fill','#409EFF')
     // 绘制圆形
     let leftCircle = that.container.selectAll('.circle')
       .data(that.componentOptions)
@@ -71,6 +71,8 @@ export default class statusComponent {
         return that.y + d.rectHeight/2;
       })
       .attr('r',d=>d.circleRadius)
+      .attr('stroke','#000000')
+      .attr('stroke-width',1)
       .attr('fill',"#FFFFFF")
     let rightCircle = that.container.selectAll('.circle')
       .data(that.componentOptions)
@@ -83,6 +85,8 @@ export default class statusComponent {
         return that.y + d.rectHeight/2;
       })
       .attr('r',d=>d.circleRadius)
+      .attr('stroke','#000000')
+      .attr('stroke-width',1)
       .attr('fill',"#FFFFFF")
     // 添加拖动事件
     function onDrag(d) {

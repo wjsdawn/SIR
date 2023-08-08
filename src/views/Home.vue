@@ -3,16 +3,16 @@
   <div class="layout">
     <div class="top">
 <!--      <img alt="Vue logo" src="../assets/logo.png" />-->
-<!--      <PieChart msg="PieChart" :pieChartData="pieChartData" />-->
+<!--      <StatusCanvas msg="StatusCanvas" :pieChartData="pieChartData" />-->
         <ProjectHeader/>
     </div>
     <div class="middle">
 <!--      <ScatterChart msg="ScatterChart" :scatterChartData="scatterChartData" />-->
       <div class="middle-left">
-          <PieChart v-if='pieChartData' :pieChartData="pieChartData"></PieChart>
+          <StatusCanvas v-if='pieChartData' :pieChartData="pieChartData"></StatusCanvas>
       </div>
       <div class="middle-middle">
-          <BarChart v-if='barChartData' :barChartData="barChartData"/>
+          <Simulation v-if='barChartData' :barChartData="barChartData"/>
       </div>
       <div class="middle-right">
 
@@ -30,19 +30,19 @@
 
 <script>
 // @ is an alias to /src
-import PieChart from '@/components/PieChart/statusCanvas.vue';
+import StatusCanvas from '@/components/StatusCanvas/statusCanvas.vue';
 import ScatterChart from '@/components/ScatterChart/scatterChart.vue';
 import ProjectHeader from '@/components/ProjectHeader/projectHeader.vue';
 import ProjectFooter from '@/components/ProjectFooter/projectFooter.vue';
-import BarChart from "@/components/BarChart/barChart";
+import Simulation from "@/components/Simulation/simulation.vue";
 export default {
   name: 'Home',
   components: {
     ProjectHeader,
-    PieChart,
+    StatusCanvas,
     ScatterChart,
     ProjectFooter,
-    BarChart
+    Simulation
   },
   mounted() {
     console.log(this.count);
