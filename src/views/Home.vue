@@ -12,7 +12,7 @@
           <StatusCanvas v-if='pieChartData' :pieChartData="pieChartData"></StatusCanvas>
       </div>
       <div class="middle-middle">
-          <Simulation v-if='barChartData' :barChartData="barChartData"/>
+<!--          <Simulation v-if='barChartData' :barChartData="barChartData"/>-->
       </div>
       <div class="middle-right">
 

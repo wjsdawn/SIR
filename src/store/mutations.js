@@ -12,5 +12,8 @@ export default {
   },
   getBarChartData(state, payload) {
     state.barChartData = payload
+  },
+  setModelData(state, payload){
+    state.ModelData = payload
   }
 };

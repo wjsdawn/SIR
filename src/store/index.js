@@ -6,6 +6,12 @@ const state = {
   scatterChartData: null,
   pieChartData:null,
   barChartData:null,
+  lineIsdDrawing:false,
+  ModelData:{
+    'Number_initial':{},
+    'transition':[],
+    'stateAllNum':null,
+  }
 }
 export default createStore({
   state,
