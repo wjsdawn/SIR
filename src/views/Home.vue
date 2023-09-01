@@ -9,13 +9,15 @@
     <div class="middle">
 <!--      <ScatterChart msg="ScatterChart" :scatterChartData="scatterChartData" />-->
       <div class="middle-left">
-          <StatusCanvas v-if='pieChartData' :pieChartData="pieChartData"></StatusCanvas>
+          <!-- <StatusCanvas v-if='pieChartData' :pieChartData="pieChartData"></StatusCanvas> -->
+          <StatusCanvas />
       </div>
       <div class="middle-middle">
-          <Simulation v-if='barChartData' :barChartData="barChartData"/>
+          <!-- <Simulation v-if='barChartData' :barChartData="barChartData"/> -->
+          <Simulation />
       </div>
       <div class="middle-right">
-
+         <Evaluation />
       </div>
     </div>
     <div class="bottom">
@@ -35,6 +37,7 @@ import ScatterChart from '@/components/ScatterChart/scatterChart.vue';
 import ProjectHeader from '@/components/ProjectHeader/projectHeader.vue';
 import ProjectFooter from '@/components/ProjectFooter/projectFooter.vue';
 import Simulation from "@/components/Simulation/simulation.vue";
+import Evaluation from "@/components/Evaluation/evaluation.vue";
 export default {
   name: 'Home',
   components: {
@@ -42,7 +45,8 @@ export default {
     StatusCanvas,
     ScatterChart,
     ProjectFooter,
-    Simulation
+    Simulation,
+    Evaluation
   },
   mounted() {
     console.log(this.count);

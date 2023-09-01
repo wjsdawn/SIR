@@ -2,12 +2,12 @@
     display: flex;
     flex-direction: column;
 }
-.top{
+.layout > .top{
     flex: 0.3;
     border: 1px solid #666666;
     margin-bottom: -1px;
 }
-.middle{
+.layout > .middle{
     flex: 6;
     display: flex;
     border: 1px solid #666666;
@@ -21,10 +21,10 @@
     border: 1px solid #666666;
 }
 .middle > .middle-right{
-    flex: 1;
+    flex: 1.5;
     border: 1px solid #666666;
 }
-.bottom{
+.layout > .bottom{
     flex: 2;
     border: 1px solid #666666;
     margin-top: -1px;

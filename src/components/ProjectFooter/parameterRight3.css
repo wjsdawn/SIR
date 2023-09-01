@@ -1,0 +1,71 @@
+.parameterRight3 {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+.parameterRight3>.parameterRight3-header{
+    flex: 1;
+    display: flex;
+}
+.parameterRight3>.parameterRight3-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    flex: 4;
+    align-items: center;
+}
+
+.parameterRight3-container>.vaccine-rate,.effective {
+    font-family:"Times New Roman";
+    display: flex;
+    font-size:15px;
+    flex:1.5;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    align-items: center;
+ 
+  }
+  .vaccine-rate>.vaccineRate-title {
+    flex:1.5;
+  }
+ .vaccine-rate>.sli-vaccineRate {
+    flex:3;
+    /* display: flex; */
+    /* width:50% */
+ }
+ .effective>.sli-effective {
+    flex:3;
+ }
+ .effective>.effective-title {
+    flex:1.5;
+ }
+ .el-slider__runway.show-input{
+    background-image: linear-gradient(to right,#000718,#23b7cb);
+    width: 30px !important;
+    height: 6px;
+ }
+ .el-slider__button {
+ 
+    border: 1px solid #80ffff;
+    background-image: radial-gradient(#000718,#23b7cb);
+    width:6px;
+    height:6px;
+   
+   }
+   .el-input__inner {
+    background-color: transparent !important;
+    border-color: #80ffff;
+    box-shadow: 1px 1px 5px 1px RGB(128, 255, 255, 0.8) inset;
+    
+    top: 5px;
+    left: 240px;
+    
+    height: 20px;
+    width: 49px;
+    font-size: 1px;
+    text-align: center;
+    /* border-image: linear-gradient(to right,#000718,#23b7cb) 5 5!important; */
+  }
