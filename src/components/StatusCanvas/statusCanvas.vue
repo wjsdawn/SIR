@@ -244,8 +244,53 @@ export default {
     },
     DefaultGenerate(){
       let that = this;
+      // 绘制状态组件
+      let container = d3.select("#blue-editor")
+      let color = ["#5c82b6","#fbca9c","#f23498","#6fbd6d"]
+      let statusType = ["Susceptible","Exposed","Infected","Recovered"]
+      let svgWidth = container.node().getBoundingClientRect().width
+      let svgHeight = container.node().getBoundingClientRect().height
       for(let i=0;i<4;i++){
-        that.statusCanvasClick()
+        let tempId = that.statusComponentList.length
+        let options = {
+          id:`status-${tempId}`,
+          name:"名字",
+          x:svgWidth/2-45,
+          y:20 + (svgHeight/4)*i,
+          color:color[i],
+          statusType:statusType[i]
+        }
+        let temp = new statusComponent(container,options)
+        that.statusComponentList.push(temp)
+      }
+      // 绘制线条,连接点的顺序为左右上下
+      let allPorts = []
+      that.statusComponentList.forEach(function(component,i) {
+          let item = component.getPorts()
+          for(let value of Object.values(item)){
+            allPorts.push(value)
+          }
+      });
+      let lineId = `line-${that.lineList.length}`
+      console.log(allPorts)
+      for(let i=0;i<3;i++){
+        let x = allPorts[3+i*4].parentX + allPorts[3+i*4].x
+        let y = allPorts[3+i*4].parentY + allPorts[3+i*4].y
+        let x2 = allPorts[6+i*4].parentX + allPorts[6+i*4].x
+        let y2 = allPorts[6+i*4].parentY + allPorts[6+i*4].y
+        let line = (that.drawingLine = new statusLine(
+          container,
+          "line",
+          [x,y],
+          that.statusComponentList[i],
+          allPorts[i*4].id,
+          '#ffe700',
+          lineId,
+        ))
+        debugger;
+        that.lineList.push(line);
+        line.dynamicGenerateCurveLine([x,y])
+        line.setLine(that.statusComponentList[i+1],[x2,y2])
       }
     },
     MatrixGenerate(){
@@ -353,6 +398,8 @@ export default {
       //   that.line.previewCurve(this)
       // })
       let lineId = `line-${that.lineList.length}`
+      console.log([e.x,e.y])
+      debugger;
       let line = (that.drawingLine = new statusLine(
         container,
         "line",
@@ -377,7 +424,6 @@ export default {
       });
       that.exstingPorts = allPorts
       console.log(that.exstingPorts);
-
       container.on("mousemove",function () {
         if(that.drawingLine.getConnectInfo()['target']==""){
           let coordinates = d3.mouse(this)
@@ -392,27 +438,6 @@ export default {
     },
     statusCanvasClick(e){
       let that = this;
-      // 线条绘制
-      // console.log("statusCanvasClick点击")
-      // console.log(e)
-      // console.log(e.parentX)
-      // console.log(e.x)
-      // let container = d3.select("#blue-editor")
-      // let line = new statusLine(
-      //   container,
-      //   "line",
-      //    [e.x,e.y],
-      //   "asd",
-      //   "ad",
-      //   '#ffe700'
-      // )
-      // container.on("mousemove",function () {
-      //   let coordinates = d3.mouse(this)
-      //   console.log(coordinates);
-      //   line.dynamicGenerateCurveLine(coordinates)
-      //
-      // })
-
       // 绘制状态组件
       let container = d3.select("#blue-editor")
       let tempId = that.statusComponentList.length

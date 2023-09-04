@@ -6,8 +6,8 @@ export default class statusComponent {
     let that = this;
     this.id = options.id;
     this.name = options.name;
-    this.color = '#409EFF';
-    this.statusType = "Susceptible"
+    this.color = options.color == undefined?'#409EFF':options.color;
+    this.statusType = options.statusType == undefined?"Susceptible":options.statusType;
     this.description = "状态description";
     this.initialValue = "";
     this.inPort = [];
@@ -19,10 +19,10 @@ export default class statusComponent {
     this.dy = 0;
     // this.x = 100*Math.random() + 150;
     // this.y = 100*Math.random() + 150;
-    this.x = 100*Math.random() + 150;
-    this.y = 100*Math.random() + 150;
-    this.parentX = this.x
-    this.parentY = this.y
+    this.x = options.x == undefined?100*Math.random() + 150:options.x
+    this.y = options.y == undefined?100*Math.random() + 150:options.y
+    // this.parentX = this.x
+    // this.parentY = this.y
     this.componentOptions = [{
       rectHeight: 75,
       rectWidth: 90,
@@ -62,29 +62,38 @@ export default class statusComponent {
   setPorts(){
     let that = this
     let i = 0
+    // 左右上下
     that.inPort.push({
       id:that.id,
       name:i++,
       x:10,
-      y:that.componentOptions[0].rectHeight/2
+      y:that.componentOptions[0].rectHeight/2,
+      parentX:that.x,
+      parentY:that.y,
     })
     that.inPort.push({
       id:that.id,
       name:i++,
       x:that.componentOptions[0].rectWidth-10,
-      y:that.componentOptions[0].rectHeight/2
+      y:that.componentOptions[0].rectHeight/2,
+      parentX:that.x,
+      parentY:that.y,
     })
     that.inPort.push({
       id:that.id,
       name:i++,
       x:that.componentOptions[0].rectWidth/2,
-      y:10
+      y:10,
+      parentX:that.x,
+      parentY:that.y,
     })
     that.inPort.push({
       id:that.id,
       name:i++,
       x:that.componentOptions[0].rectWidth/2,
-      y:that.componentOptions[0].rectHeight-10
+      y:that.componentOptions[0].rectHeight-10,
+      parentX:that.x,
+      parentY:that.y,
     })
   }
   getPorts(){
@@ -251,8 +260,6 @@ export default class statusComponent {
         let x = d.parentX + d.x
         let y = d.parentY + d.y
         setLineIsDrawing()
-        // console.log(that.id);
-        // console.log(that)
         componentConnect({x:x,y:y,parent:d.id,component:this})
         // if(!getLineIsDrawing()){
         //   let x = d3.event.offsetX

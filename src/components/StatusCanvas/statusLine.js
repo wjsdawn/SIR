@@ -93,7 +93,7 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
     //description 根据d3.curveBasis生成曲线
     //input [[xa,ya],[x1,y1],[x2,y2],[xb,yb]]
     //曲线生成器
-
+    // debugger;
     let lineGenerator = d3.line().curve(d3.curveBasis),
       pathData = lineGenerator(points),
       curveWidth = '3px';
@@ -287,6 +287,7 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
     attribu.randomCoverId = "linearColor" + String(new Date()-0)
   }
   this.parentPosUpdated = function(dx, dy, inPorts, outPorts, curEleid,status) {
+    debugger;
     if(attribu.sourceId == curEleid){
       attribu.storePoints[0][0] += dx
       attribu.storePoints[0][1] += dy
@@ -336,7 +337,6 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
         attribu.storePoints.unshift([attribu.circleCoordinatesX, attribu.circleCoordinatesY])
       }
     }
-
     let p = calculateCurvePointInterpolation(attribu.storePoints)
     generateCurveLine(p)
   }
@@ -357,10 +357,9 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
       nearPoints = nearPoints.sort(function (a, b) {
         return a.dis - b.dis
       })
-
-
       if (nearPoints[0] != undefined && nearPoints[0] != null) {
         attribu.container.on('mousemove.circle', null)
+        debugger;
         attribu.targetPort = nearPoints[0].port
         attribu.targetParent = nearPoints[0].port.id
         attribu.storePoints[1] = nearPoints[0].pos
@@ -388,6 +387,31 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
 
     }
 
+  }
+  this.setLine = function(port,pos) {
+    attribu.container.on('mousemove.circle', null)
+    attribu.targetPort = port
+    attribu.targetParent = port.id
+    attribu.storePoints[1] = pos
+    attribu.lineText = d3.select("#blue-editor").append('text')
+      .attr('class','line-text')
+      .attr('x',function() {
+        return (attribu.storePoints[0][0] +attribu.storePoints[1][0])/2
+      })
+      .attr('y',function() {
+        return (attribu.storePoints[0][1] +attribu.storePoints[1][1])/2
+      })
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
+      .attr('font-size',"15x")
+      .attr('fill','#000000')
+      .style('display','none')
+      .text(attribu.status)
+    generateAnimateCoverCurveLine()
+    this.dynamicGenerateCurveLine()
+
+    attribu.isWaitPath == false
+    attribu.targetId = port.id
   }
   this.animate = function(){
     if(attribu.targetPort != ''){
