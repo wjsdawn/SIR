@@ -2,18 +2,13 @@
   <!-- 摆放各个组件以及布局 -->
   <div class="layout">
     <div class="top">
-<!--      <img alt="Vue logo" src="../assets/logo.png" />-->
-<!--      <StatusCanvas msg="StatusCanvas" :pieChartData="pieChartData" />-->
         <ProjectHeader/>
     </div>
     <div class="middle">
-<!--      <ScatterChart msg="ScatterChart" :scatterChartData="scatterChartData" />-->
       <div class="middle-left">
-          <!-- <StatusCanvas v-if='pieChartData' :pieChartData="pieChartData"></StatusCanvas> -->
           <StatusCanvas />
       </div>
       <div class="middle-middle">
-          <!-- <Simulation v-if='barChartData' :barChartData="barChartData"/> -->
           <Simulation />
       </div>
       <div class="middle-right">
@@ -51,9 +46,6 @@ export default {
   mounted() {
     console.log(this.count);
     const id = 32311;
-    this.$store.dispatch('getPieChartDataAsync');
-    this.$store.dispatch('getScatterChartDataAsync');
-    this.$store.dispatch('getBarChartDataAsync');
   },
   computed: {
     // 获取vuex中的数据，并且声明为组价的计算属性

@@ -18,17 +18,14 @@ export default {
     console.log("model",payload)
     context.commit('getPredictData', await getPredictDataRequest(payload));
   },
-  async changePopulationAsync(context, payload){ 
-    context.commit('changePopulation', payload);
+  async setParamesAsync(context, payload){ 
+    context.commit('setParames', payload);
   },
-  async changeDaysAsync(context, payload){ 
-    context.commit('changeDays', payload);
+  async addSliderArrAsync(context,payload){ 
+    context.commit('addSliderArr',payload);
   },
-  async changeNames1Async(context, payload){ 
-    context.commit('changeNames1', payload);
-  },
-  async changeValues1Async(context, payload){ 
-    context.commit('changeValues1', payload);
+  async delSliderArrAsync(context,payload){ 
+    context.commit('delSliderArr',payload);
   }
- 
+  
 };

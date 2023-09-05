@@ -13,7 +13,7 @@
 }
 .projectFooter>.parameter-container{
     flex: 4;
-    border-color: #80ffff;
+    /* border-color: #80ffff; */
     border-width: thin;
     /* box-shadow: 1px 1px 5px 1px RGB(128, 255, 255, 0.8) inset; */
     width: 100%;
@@ -28,40 +28,47 @@
     font-size:  20px;
 }
 .parameter-header>.submit{
-    flex:0.2
+    flex:0.15
+}
+.parameter-header>.parameter-dropdown{
+    flex:0.5
 }
 .parameter-container>.parameter-left{
     flex: 0.91;
-    border-color: #80ffff;
+    /* border-color: #80ffff; */
     border-width: thin;
     border:0.5px solid #666666;
     /* box-shadow: 1px 1px 5px 1px RGB(128, 255, 255, 0.8) inset; */
 }
 .parameter-container>.parameter-middle{
     flex: 1;
-    border-color: #80ffff;
+    /* border-color: #80ffff; */
     border-width: thin;
     border: 0.5px solid #666666;
     /* box-shadow: 1px 1px 5px 1px RGB(128, 255, 255, 0.8) inset; */
 }
 .parameter-container>.parameter-right1{
     flex: 1;
-    border-color: #80ffff;
+    /* border-color: #80ffff; */
     border-width: thin;
     border:0.5px solid #666666;
     /* box-shadow: 1px 1px 5px 1px RGB(128, 255, 255, 0.8) inset; */
 }
 .parameter-container>.parameter-right2{
     flex: 1;
-    border-color: #80ffff;
+    /* border-color: #80ffff; */
     border-width: thin;
     border: 0.5px solid #666666;
     /* box-shadow: 1px 1px 5px 1px RGB(128, 255, 255, 0.8) inset; */
 }
 .parameter-container>.parameter-right3{
     flex: 1;
-    border-color: #80ffff;
+    /* border-color: #80ffff; */
     border-width: thin;
     border: 0.5px solid #666666;
     /* box-shadow: 1px 1px 5px 1px RGB(128, 255, 255, 0.8) inset; */
 }
+/* .el-icon-arrow-down {
+    font-size: 12px;
+  } */
+

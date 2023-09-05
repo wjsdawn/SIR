@@ -2,12 +2,6 @@
   <div class="parameterLeft">
     <div class="parameterLeft-header">
       <div class="parameterLeft-title">Location</div>
-      <div class="parameterLeft-button">
-        <el-button
-          type="primary"
-          @click="add"
-        >添加</el-button>
-      </div>
     </div>
     <el-scrollbar style="height: 100%;">
       <!--为啥一定要把这个写在最外层，css中container的三个部分才能都生效横向felx呢-->
@@ -18,8 +12,7 @@
         <el-slider
           class="sli-population"
           input-size="mini"
-          v-model="population"
-          label="11"
+          v-model="localParames['population']"
           show-input
           :show-input-controls="false"
           :max="50000000"
@@ -31,22 +24,21 @@
         <el-slider
           class="sli-days"
           input-size="mini"
-          v-model="days"
-          label="11"
+          v-model="localParames['days']"
           show-input
           :show-input-controls="false"
-          :max="50000000"
+          :max="400"
           :format-tooltip="formatTooltip"
         ></el-slider>
       </div>
       
-      <div class="add" v-for="(item, index) in array" :key="index">
+      <div class="add" v-for="(item, index) in this.$store.state.SliderArr[0]" :key="index">
         <!-- <span class="title">Population(N)</span> -->
-        <el-input class="title" style="width:20%;margin-right:10px" v-model="names1[index]" placeholder="参数名" clearable></el-input>
+        <el-input class="title"  v-model="localParames['names1'][index]" placeholder="输入参数名" clearable></el-input>
         <el-slider
           class="sli"
           input-size="mini"
-          v-model="values1[index]"
+          v-model="localParames['values1'][index]"
           label="11"
           show-input
           :show-input-controls="false"
@@ -55,12 +47,10 @@
         ></el-slider>
         <el-button
           class="delete"
-          type="danger"
           size="small"
-          icon="el-icon-delete"
-          circle
-          @click="del(index)"
-          >删除</el-button
+          @click="del(index)">
+          <el-icon ><Close/></el-icon>
+          </el-button
         >
       </div>    
         <!-- </div> -->
@@ -74,39 +64,20 @@
 
 export default {
     data() {
-      return {
-        population: 0,
-        days: 0,
-        array: [], //创建一个数组
-        names1: [], //接收每个input框的值
-        values1: [],
+    return {
+        localParames:{
+          population: null,
+          days: null,
+          array: [], //创建一个数组
+          names1: [], //接收每个input框的值
+          values1: [],
+      }
       };
   },
-    // computed: {
-    //   this.$store.dispatch('saveDbSource', this.DbSource);
-    // },
     watch: {
-      population: {
-        handler(newVal, oldVal) {
-          this.$store.dispatch('changePopulationAsync', newVal)
-        }
-      },
-      days: {
-        handler(newVal, oldVal) {
-          this.$store.dispatch('changeDaysAsync', newVal)
-        }
-      },
-      names1: {
-        handler(newVal, oldVal) {
-          this.$store.dispatch('changeNames1Async', newVal)
-          // console.log('测试names1',newVal)
-        },
-        immediate: true,
-        deep: true //对于数组来说要加上深度监听才行
-      },
-      values1: {
-        handler(newVal, oldVal) {
-          this.$store.dispatch('changeValues1Async', newVal)
+      localParames: {
+        handler(newVal) {
+          this.$store.dispatch('setParamesAsync', { 'name': 'localParames', 'value': newVal })
         },
         immediate: true,
         deep: true
@@ -114,15 +85,15 @@ export default {
     },
     methods: {
       formatTooltip(val) {
-        return val / 100;
+        return val;
       },
-      add() {
-        this.array.push(1); //通过添加array的值，增加input的个数
-      },
+      // add() {
+      //   this.array.push(1); //通过添加array的值，增加input的个数
+      // },
       del(index) {
-        this.names1.splice(index, 1);
-        this.values1.splice(index, 1); //先删除form中value对应索引的值
-        this.array.splice(index, 1); //然后删除array对应索引的值，实现点击删除按钮，减少input框效果
+        this.localParames['names1'].splice(index, 1);
+        this.localParames['values1'].splice(index, 1); //先删除form中value对应索引的值
+        this.$store.dispatch('delSliderArrAsync',{'name':0,'index':index})//然后删除array对应索引的值，实现点击删除按钮，减少input框效果
       },
       // async loadMore() {
       //   if (this.busy) return
@@ -136,6 +107,7 @@ export default {
   };
 </script>
 
-<style scoped>
-@import './parameterLeft.css';
+<style scoped src='./parameterLeft.css'>
+</style>
+<style scoped src='../../assets/styles/slider.css'>
 </style>

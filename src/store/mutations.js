@@ -4,29 +4,21 @@ export default {
     // 变更状态
     state.count += payload.amount;
   },
-  getPieChartData(state, payload) {
-    state.pieChartData = payload;
-  },
-  getScatterChartData(state, payload) {
-    state.scatterChartData = payload;
-  },
-  getBarChartData(state, payload) {
-    state.barChartData = payload
-  },
   getPredictData(state, payload) {
     state.predictData = payload
     console.log("返回预测值", state.predictData)
   },
-  changePopulation(state, payload) {
-    state.parames['population'] = payload
+  setParames(state, payload){
+    state.parames[payload['name']] = payload['value']
+    console.log("返回预测值", state.parames['localParames'])
   },
-  changeDays(state, payload) {
-    state.parames['days'] = payload
+  setModelData(state, payload){
+    state.ModelData = payload
   },
-  changeNames1(state, payload) {
-    state.parames['names1'] = payload
+  addSliderArr(state, payload) {
+    state.SliderArr[payload].push(1)
   },
-  changeValues1(state, payload) {
-    state.parames['values1'] = payload
+  delSliderArr(state, payload) {
+    state.SliderArr[payload['name']].splice(payload['index'], 1)
   }
 };

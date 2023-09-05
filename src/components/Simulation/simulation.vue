@@ -3,7 +3,8 @@
     <div class="simulation-header">
       <div id="simulation-title">Simulation</div>
     </div>
-    <div class="simulation-container" id="simulation-container"></div>
+    <div class="simulation-container" id="simulation-container">
+    </div>
   </div>
 </template>
 <script>
@@ -72,32 +73,36 @@ export default {
       this.names,
       this.time,
       this.sereiesData
-    );
+    ),
+    //渲染完成后，清空数组，避免不同阶段push的堆积
+    this.names = [];
+    this.numbers = {};
+    this.time = [];
+    this.stateNum = 0;
+    this.sereiesData = [];
   },
   computed: {
     stackChartData() {
-      console.log('computed值', this.$store.state.predictData);
+      // console.log('computed值', this.$store.state.predictData);
       return this.$store.state.predictData;
     },
   },
   methods: {
     predictDataProcess(predictData) {
       var pre = predictData.index;
-      var T = this.$store.state.parames.days;
-
+      var T = this.$store.state.parames['localParames']['days'];
       //处理类型名
-      //    num_init = this.$store.state.ModelData['Number_initial']
-      //    for (let key in num_init) {
-      //        this.name.push(key)
-      //    }
-
+      var num_init = this.$store.state.ModelData['Number_initial']
+      for (var key in num_init) {
+             this.name.push(key)
+         }
       //构造类型 人数 字典
-      //    for (var i = 0; i < pre.length; i++) {
-      //        for (var j = 0; j <  this.name.length; j++) {
-      //           this.numbers[this.name[j]].push(pre[i][j])
-      //        }
-      //    }
-      //   this.stateNum = this.$store.state.ModelData.stateAllNum
+      for (var i = 0; i < pre.length; i++) {
+             for (var j = 0; j <  this.name.length; j++) {
+                this.numbers[this.name[j]].push(pre[i][j])
+             }
+         }
+      // this.stateNum = this.$store.state.ModelData.stateAllNum
       for (var m = 1; m <= T; m++) {
         this.time.push(m);
       }

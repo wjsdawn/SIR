@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
-let TextBlueLine = function(container, parent, point, source, sourceid, coverColor){
+let TextBlueLine = function(container, parent, point, source, sourceid, coverColor,lineId){
   //私有属性
-  var attribu = {
+  let attribu = {
     sourcePoint : '',
     sourcePort : '',
     targetPort : '',
@@ -23,8 +23,13 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
     targetId : '',
     sourceId : '',
     isDeleted : false,
-    coverColor : "#808080",
-    randomCoverId: ''
+    coverColor : "#f60202",
+    randomCoverId: '',
+    lineId:'',
+    transition:"",
+    strokeColor:"#138dde",
+    status:'',
+    lineText:null
   }
   //私有方法
 
@@ -84,6 +89,7 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
   }
 
   function generateCurveLine(points) {
+    let that = this
     //description 根据d3.curveBasis生成曲线
     //input [[xa,ya],[x1,y1],[x2,y2],[xb,yb]]
     //曲线生成器
@@ -108,6 +114,14 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
       //存在待绘制路径,反复绘制实现路径预览
       attribu.baseLine.attr('d', pathData)
     }
+    // 添加右键事件
+    d3.selectAll('.line')
+      .on('contextmenu',function(d,e) {
+        d3.event.preventDefault();
+        console.log(this.id)
+        setLineData(this.id)
+      })
+    // 添加文字
   }
 
   function updateCoverLine(){
@@ -156,7 +170,9 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
     attribu.coverLine = attribu.container.append('path')
       .attr('d', pathData)
       .style('fill', 'none')
-      .style('stroke', "url(#" + attribu.randomCoverId + ")")
+      // 修改线的颜色
+      .style('stroke',attribu.strokeColor)
+      // .style('stroke', "url(#" + attribu.randomCoverId + ")")
       .attr('class', 'rgbLine')
       .attr('stroke-width', curveWidth)
 
@@ -263,14 +279,14 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
     attribu.sourcePort = source
     attribu.points = [point, point]
     attribu.storePoints = [point, point]
-    attribu.container = container.append('g')
+    attribu.container = container.append('g').attr('id',lineId).attr('class',"line")
     attribu.sourceParent = parent
     attribu.sourceId = sourceid
     attribu.coverColor = coverColor
+    attribu.lineId = lineId
     attribu.randomCoverId = "linearColor" + String(new Date()-0)
   }
-  this.parentPosUpdated = function(dx, dy, inPorts, outPorts, curEleid) {
-
+  this.parentPosUpdated = function(dx, dy, inPorts, outPorts, curEleid,status) {
     if(attribu.sourceId == curEleid){
       attribu.storePoints[0][0] += dx
       attribu.storePoints[0][1] += dy
@@ -283,7 +299,23 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
       this.dynamicGenerateCurveLine()
       updateCoverLine()
     }
-
+    console.log(attribu.status);
+    attribu.lineText
+      .attr('x',function() {
+        return (attribu.storePoints[0][0] +attribu.storePoints[1][0])/2
+      })
+      .attr('y',function() {
+        return (attribu.storePoints[0][1] +attribu.storePoints[1][1])/2
+      })
+      .text(attribu.status)
+    // d3.selectAll('.line-text')
+    //   .attr('x',function() {
+    //     return (attribu.storePoints[0][0] +attribu.storePoints[1][0])/2 + 40
+    //   })
+    //   .attr('y',function() {
+    //     return (attribu.storePoints[0][1] +attribu.storePoints[1][1])/2
+    //   })
+    //   .text(status)
   }
   this.dynamicGenerateCurveLine = function(coordinates){
 
@@ -318,10 +350,10 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
         let dis = (x - point[0]) * (x - point[0]) +
           (y - point[1]) * (y - point[1])
         if (dis < 400) {
+
           nearPoints.push({ 'dis': dis, 'port': port, 'pos': [x, y], 'ID': port.id})
         }
       })
-
       nearPoints = nearPoints.sort(function (a, b) {
         return a.dis - b.dis
       })
@@ -332,7 +364,20 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
         attribu.targetPort = nearPoints[0].port
         attribu.targetParent = nearPoints[0].port.id
         attribu.storePoints[1] = nearPoints[0].pos
-
+        attribu.lineText = d3.select("#blue-editor").append('text')
+          .attr('class','line-text')
+          .attr('x',function() {
+            return (attribu.storePoints[0][0] +attribu.storePoints[1][0])/2
+          })
+          .attr('y',function() {
+            return (attribu.storePoints[0][1] +attribu.storePoints[1][1])/2
+          })
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "middle")
+          .attr('font-size',"15x")
+          .attr('fill','#000000')
+          .style('display','none')
+          .text(attribu.status)
         generateAnimateCoverCurveLine()
         this.dynamicGenerateCurveLine()
 
@@ -363,9 +408,23 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
       "target": attribu.targetPort,
       "sourceId": attribu.sourceId,
       "targetId": attribu.targetId,
-      "isDeleted": attribu.isDeleted
+      "isDeleted": attribu.isDeleted,
+      "lineId":attribu.lineId,
+      "transition":attribu.transition,
+      "strokeColor":attribu.strokeColor,
+      "status":attribu.status
     }
     return re
+  }
+  this.setAttrData = function(data) {
+    // attribu.lineId = data.lineId
+    // debugger;
+    attribu.transition = data.transition
+    attribu.strokeColor = data.strokeColor
+    attribu.status = data.lineStatus
+    attribu.coverLine.style('stroke',attribu.strokeColor)
+    attribu.lineText.text(attribu.status)
+
   }
   this.tes111t = function(){
     console.log("statusLine.js加载")

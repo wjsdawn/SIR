@@ -1,5 +1,5 @@
 import * as echarts from 'echarts'
-let drawLineChart = (container) => {
+let drawLineChart = (container,time,data_T,data_P) => {
     var Chart = echarts.init(document.getElementById(container))
     var option = {
         grid: {
@@ -33,7 +33,7 @@ let drawLineChart = (container) => {
           },
         xAxis: {
             type: 'category',
-            data: [1,2,3,4,5,6,7]
+            data: time
         },
         yAxis: {
             type: 'value'
@@ -41,13 +41,13 @@ let drawLineChart = (container) => {
         series: [
             {
                 name: 'I(预测)',
-                data: [820, 932, 901, 934, 1290, 1330, 1320],
+                data: data_P,
                 type: 'line',
                 smooth: true
             },
             {
                 name: 'I(真实)',
-                data: [600, 800, 700, 750, 1100, 1230, 1220],
+                data: data_T,
                 type: 'line',
                 smooth: true
             }
