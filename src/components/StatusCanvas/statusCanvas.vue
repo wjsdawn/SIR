@@ -16,10 +16,10 @@
     </div>
       <div id="statusForm" v-if="formBool" @dblclick="closeStatusForm">
           <el-form :inline="true" :model="formData" class="demo-form-inline">
-              <el-form-item label="name:">
+              <el-form-item label="Name:">
                   <el-input v-model="formData.name" placeholder="name" size="small" clearable />
               </el-form-item>
-              <el-form-item label="statusType:">
+              <el-form-item label="StatusType:">
                   <el-select v-model="formData.statusType" class="m-2" placeholder="Select" size="small">
                       <el-option
                               v-for="item in statusTypes"
@@ -30,14 +30,14 @@
                   </el-select>
 <!--                  <el-input v-model="formData.statusType" placeholder="statusType" size="small" clearable />-->
               </el-form-item>
-              <el-form-item label="color:">
+              <el-form-item label="Color:">
                   <el-input v-model="formData.color" placeholder="123" size="small" style="width: 70%" clearable />
                   <el-color-picker v-model="formData.color" show-alpha />
               </el-form-item>
-              <el-form-item label="description:">
+              <el-form-item label="Description:">
                   <el-input v-model="formData.description" placeholder="description" size="small" clearable />
               </el-form-item>
-              <el-form-item label="initialValue:">
+              <el-form-item label="InitialValue:">
                   <el-input v-model="formData.initialValue" placeholder="initialValue" size="small" clearable />
               </el-form-item>
           </el-form>
@@ -47,7 +47,7 @@
               <el-form-item label="ID:">
                   <el-input v-model="lineConnectData.id" placeholder="id" size="small" disabled clearable />
               </el-form-item>
-              <el-form-item label="lineType:">
+              <el-form-item label="Transition:">
                   <el-select v-model="lineConnectData.lineStatus" class="m-2" placeholder="Select" size="small">
                       <el-option
                               v-for="item in lineTypes"
@@ -58,11 +58,11 @@
                   </el-select>
                   <!--                  <el-input v-model="formData.statusType" placeholder="statusType" size="small" clearable />-->
               </el-form-item>
-              <el-form-item label="color:">
+              <el-form-item label="Color:">
                   <el-input v-model="lineConnectData.strokeColor" placeholder="123" size="small" style="width: 70%" clearable />
                   <el-color-picker v-model="lineConnectData.strokeColor" show-alpha />
               </el-form-item>
-              <el-form-item label="transition:">
+              <el-form-item label="Description:">
                   <el-input v-model="lineConnectData.transition" placeholder="description" size="small" clearable />
               </el-form-item>
           </el-form>
@@ -244,9 +244,55 @@ export default {
     },
     DefaultGenerate(){
       let that = this;
+      // 绘制状态组件
+      let container = d3.select("#blue-editor")
+      let color = ["#5c82b6","#fbca9c","#f23498","#6fbd6d"]
+      let statusType = ["Susceptible","Exposed","Infected","Recovered"]
+      let svgWidth = container.node().getBoundingClientRect().width
+      let svgHeight = container.node().getBoundingClientRect().height
       for(let i=0;i<4;i++){
-        that.statusCanvasClick()
+        let tempId = that.statusComponentList.length
+        let options = {
+          id:`status-${tempId}`,
+          name:"名字",
+          x:svgWidth/2-45,
+          y:20 + (svgHeight/4)*i,
+          color:color[i],
+          statusType:statusType[i]
+        }
+        let temp = new statusComponent(container,options)
+        that.statusComponentList.push(temp)
       }
+      // 绘制线条,连接点的顺序为左右上下
+      let allPorts = []
+      that.statusComponentList.forEach(function(component,i) {
+          let item = component.getPorts()
+          for(let value of Object.values(item)){
+            allPorts.push(value)
+          }
+      });
+      console.log(allPorts)
+      for(let i=0;i<3;i++){
+        let x = allPorts[3+i*4].parentX + allPorts[3+i*4].x
+        let y = allPorts[3+i*4].parentY + allPorts[3+i*4].y
+        let x2 = allPorts[6+i*4].parentX + allPorts[6+i*4].x
+        let y2 = allPorts[6+i*4].parentY + allPorts[6+i*4].y
+        let lineId = `line-${that.lineList.length}`
+        let line = (that.drawingLine = new statusLine(
+          container,
+          "line",
+          [x,y],
+          that.statusComponentList[i],
+          allPorts[i*4].id,
+          '#ffe700',
+          lineId,
+        ))
+        debugger;
+        that.lineList.push(line);
+        line.dynamicGenerateCurveLine([x,y])
+        line.setLine(that.statusComponentList[i+1],[x2,y2])
+      }
+      console.log(that.lineList);
     },
     MatrixGenerate(){
       let that = this
@@ -273,7 +319,7 @@ export default {
         let item = line.getConnectInfo()
         let i = that.getStatusPosition(item.sourceId)
         let j = that.getStatusPosition(item.targetId)
-        arr[i][j] = `${item.status}*${that.statusComponentList[i]['initialValue']}*${that.statusComponentList[j]['initialValue']}`
+        arr[i][j] = `${item.status}*${that.statusComponentList[i]['statusType']}*${that.statusComponentList[j]['initialValue']}`
         console.log(item);
       })
       that.ModelData['transition'] = arr;
@@ -353,6 +399,8 @@ export default {
       //   that.line.previewCurve(this)
       // })
       let lineId = `line-${that.lineList.length}`
+      console.log([e.x,e.y])
+      debugger;
       let line = (that.drawingLine = new statusLine(
         container,
         "line",
@@ -377,7 +425,6 @@ export default {
       });
       that.exstingPorts = allPorts
       console.log(that.exstingPorts);
-
       container.on("mousemove",function () {
         if(that.drawingLine.getConnectInfo()['target']==""){
           let coordinates = d3.mouse(this)
@@ -392,27 +439,6 @@ export default {
     },
     statusCanvasClick(e){
       let that = this;
-      // 线条绘制
-      // console.log("statusCanvasClick点击")
-      // console.log(e)
-      // console.log(e.parentX)
-      // console.log(e.x)
-      // let container = d3.select("#blue-editor")
-      // let line = new statusLine(
-      //   container,
-      //   "line",
-      //    [e.x,e.y],
-      //   "asd",
-      //   "ad",
-      //   '#ffe700'
-      // )
-      // container.on("mousemove",function () {
-      //   let coordinates = d3.mouse(this)
-      //   console.log(coordinates);
-      //   line.dynamicGenerateCurveLine(coordinates)
-      //
-      // })
-
       // 绘制状态组件
       let container = d3.select("#blue-editor")
       let tempId = that.statusComponentList.length
