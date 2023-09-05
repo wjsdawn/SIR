@@ -14,6 +14,7 @@ export default {
   },
   setModelData(state, payload){
     state.ModelData = payload
+    console.log("测试",state.ModelData)
   },
   addSliderArr(state, payload) {
     state.SliderArr[payload].push(1)

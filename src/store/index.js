@@ -30,15 +30,15 @@ const state = {
       'values3_af':[],
     },
     healthParames: {
-      maxbed: 0,
-      names4: [],
-      values4: []
+      'maxbed': 0,
+      'names4': [],
+      'values4': []
     },
     vaccaineParames: {
-      vacRate: 0,
-      effecRare: 0,
-      names5: [],
-      values5: []
+      'vacRate': 0,
+      'effecRare': 0,
+      'names5': [],
+      'values5': []
      }
   },
   ModelData:{
