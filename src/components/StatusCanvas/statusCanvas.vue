@@ -20,7 +20,7 @@
                   <el-input v-model="formData.name" placeholder="name" size="small" clearable />
               </el-form-item>
               <el-form-item label="StatusType:">
-                  <el-select v-model="formData.statusType" class="m-2" placeholder="Select" size="small">
+                  <el-select v-model="formData.statusType" class="m-2" placeholder="Select" size="small" filterable allow-create>
                       <el-option
                               v-for="item in statusTypes"
                               :key="item.value"
@@ -48,7 +48,7 @@
                   <el-input v-model="lineConnectData.id" placeholder="id" size="small" disabled clearable />
               </el-form-item>
               <el-form-item label="Transition:">
-                  <el-select v-model="lineConnectData.lineStatus" class="m-2" placeholder="Select" size="small">
+                  <el-select v-model="lineConnectData.lineStatus" class="m-2" placeholder="Select" size="small" filterable allow-create>
                       <el-option
                               v-for="item in lineTypes"
                               :key="item.value"
