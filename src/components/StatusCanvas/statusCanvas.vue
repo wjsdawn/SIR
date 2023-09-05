@@ -4,12 +4,42 @@
 <!--    <p>{{ pieChartData && pieChartData[0] }}</p>-->
     <div class="statusCanvas-header">
       <div id="statusCanvas-title">Model</div>
-        <div id="generate-default-icon" @click="DefaultGenerate"></div>
-        <div id="preview-icon" @click="preview" v-if="previewIcon"></div>
-        <div id="preview-close-icon" @click="previewClose" v-if="!previewIcon"></div>
-        <div id="generate-Martix-icon" @click="MatrixGenerate"></div>
-        <div id="minuc-icon"></div>
-      <div id="plus-icon" @click="statusCanvasClick"></div>
+        <el-tooltip
+                content="<span>添加SEIR模型</span>"
+                raw-content
+        >
+            <div id="generate-default-icon" @click="DefaultGenerate"></div>
+        </el-tooltip>
+        <el-tooltip
+                content="<span>关闭文字提示</span>"
+                raw-content
+        >
+            <div id="preview-icon" @click="preview" v-if="previewIcon"></div>
+        </el-tooltip>
+        <el-tooltip
+                content="<span>打开文字提示</span>"
+                raw-content
+        >
+            <div id="preview-close-icon" @click="previewClose" v-if="!previewIcon"></div>
+        </el-tooltip>
+        <el-tooltip
+                content="<span>发送矩阵数据</span>"
+                raw-content
+        >
+            <div id="generate-Martix-icon" @click="MatrixGenerate"></div>
+        </el-tooltip>
+        <el-tooltip
+                content="<span>删减状态</span>"
+                raw-content
+        >
+            <div id="minuc-icon"></div>
+        </el-tooltip>
+        <el-tooltip
+                content="<span>添加状态</span>"
+                raw-content
+        >
+            <div id="plus-icon" @click="statusCanvasClick"></div>
+        </el-tooltip>
     </div>
     <div class="blue-container">
         <svg id="blue-editor" style="width: 100%;height: 100%" ></svg>
@@ -20,7 +50,7 @@
                   <el-input v-model="formData.name" placeholder="name" size="small" clearable />
               </el-form-item>
               <el-form-item label="StatusType:">
-                  <el-select v-model="formData.statusType" class="m-2" placeholder="Select" size="small">
+                  <el-select v-model="formData.statusType" class="m-2" placeholder="Select" size="small" filterable allow-create>
                       <el-option
                               v-for="item in statusTypes"
                               :key="item.value"
@@ -47,8 +77,11 @@
               <el-form-item label="ID:">
                   <el-input v-model="lineConnectData.id" placeholder="id" size="small" disabled clearable />
               </el-form-item>
+              <el-form-item label="Name:">
+                  <el-input v-model="lineConnectData.name" placeholder="name" size="small"  clearable />
+              </el-form-item>
               <el-form-item label="Transition:">
-                  <el-select v-model="lineConnectData.lineStatus" class="m-2" placeholder="Select" size="small">
+                  <el-select v-model="lineConnectData.lineStatus" class="m-2" placeholder="Select" size="small" filterable allow-create>
                       <el-option
                               v-for="item in lineTypes"
                               :key="item.value"
@@ -94,7 +127,7 @@ export default {
   },
   data() {
     return{
-      previewIcon:false,
+      previewIcon:true,
       ModelData:{
         'Number_initial':{},
         'transition':[],
@@ -378,6 +411,7 @@ export default {
         if(id == item.lineId){
           that.lineConnectData = {
             id:item.lineId,
+            name:item.name,
             transition:item.transition,
             strokeColor:item.strokeColor,
             lineStatus:item.status
@@ -501,24 +535,28 @@ export default {
     flex: 0.07;
     background: url("../../assets/关闭预览.png") no-repeat center;
     background-size: 100% 100%;
+    cursor:pointer;
 }
 #preview-icon{
     height: 100%;
     flex: 0.07;
     background: url("../../assets/预览 .png") no-repeat center;
     background-size: 100% 100%;
+    cursor:pointer;
 }
 #generate-default-icon{
     height: 100%;
     flex: 0.07;
     background: url("../../assets/生成配置.png") no-repeat center;
     background-size: 100% 100%;
+    cursor:pointer;
 }
 #generate-Martix-icon{
     height: 100%;
     flex: 0.07;
     background: url("../../assets/代码生成.png") no-repeat center;
     background-size: 100% 100%;
+    cursor:pointer;
 }
 #plus-icon{
     height: 100%;
@@ -526,12 +564,14 @@ export default {
     background: url("../../assets/加.png") no-repeat center;
     background-size: 100% 100%;
     /*border: 2px solid black;*/
+    cursor:pointer;
 }
 #minuc-icon{
     height: 100%;
     flex: 0.07;
     background: url("../../assets/减.png") no-repeat center;
     background-size: 100% 100%;
+    cursor:pointer;
 }
 #statusForm{
     position: absolute;

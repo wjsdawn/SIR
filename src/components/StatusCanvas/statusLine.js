@@ -27,6 +27,7 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
     randomCoverId: '',
     lineId:'',
     transition:"",
+    name:"",
     strokeColor:"#138dde",
     status:'',
     lineText:null
@@ -436,7 +437,8 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
       "lineId":attribu.lineId,
       "transition":attribu.transition,
       "strokeColor":attribu.strokeColor,
-      "status":attribu.status
+      "status":attribu.status,
+      "name":attribu.name,
     }
     return re
   }
