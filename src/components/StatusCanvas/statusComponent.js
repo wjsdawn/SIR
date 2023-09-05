@@ -152,6 +152,8 @@ export default class statusComponent {
       .on('mouseover',function(d) {
         that.container.append('text')
           .attr('id','component-text')
+          .attr('y','-10')
+          .attr('fill','#909399')
           .text(that.description)
       })
       .on('mouseout',function(d) {
@@ -247,8 +249,8 @@ export default class statusComponent {
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "middle")
       .attr('font-size',"15x")
-      .attr('fill','#000000')
-      .style('display','none')
+      .attr('fill','#909399')
+      // .style('display','none')
       .text(that.statusType)
 
     // 事件添加
