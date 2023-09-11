@@ -352,7 +352,8 @@ export default {
         let item = line.getConnectInfo()
         let i = that.getStatusPosition(item.sourceId)
         let j = that.getStatusPosition(item.targetId)
-        arr[i][j] = `${item.status}*${that.statusComponentList[i]['statusType']}*${that.statusComponentList[j]['initialValue']}`
+        // arr[i][j] = `${item.status}*${that.statusComponentList[i]['statusType']}*${that.statusComponentList[j]['initialValue']}`
+        arr[i][j] = `${item.status}`
         console.log(item);
       })
       that.ModelData['transition'] = arr;
