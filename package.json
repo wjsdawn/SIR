@@ -7,13 +7,16 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "d3": "^5.9.2",
     "echarts": "^5.4.0",
     "element-plus": "^2.3.9",
+    "element-ui": "^2.15.13",
     "express": "^4.17.1",
     "vue": "^3.0.0",
+    "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },

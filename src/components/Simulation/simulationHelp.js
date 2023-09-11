@@ -1,65 +1,105 @@
-import * as d3 from 'd3'
-export const drawBarChart = (container, data, {
-  // 获取y轴的值
-  yValue = (d) => d.value,
-  // 获取x轴的值
-  xValue = (d) => d.name,
-  dimensions = {
-    width: 600,
-    height: 600,
-    margin: {
-      top: 15,
-      right: 15,
-      bottom: 40,
-      left: 60
-    }
-  },
-  color = d3.scaleOrdinal(d3.schemePastel2)
-}={}) => {
-  // 图表宽度
-  dimensions.boundedWidth =
-    dimensions.width - dimensions.margin.left - dimensions.margin.right;
-  // 图表高度
-  dimensions.boundedHeight =
-    dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
-  const svg = d3
-    .select(container)
-    .attr("width", dimensions.width)
-    .attr("height", dimensions.height);
-  // y轴为线性比例尺
-  const yScale = d3.scaleLinear()
-    .domain([0, d3.max(data, (d) => yValue(d))])
-    .range([dimensions.boundedHeight, 0]);
+import * as echarts from 'echarts'
+let drawStackChart = (container, names,time,sereiesData) => {
+  var Chart = echarts.init(document.getElementById(container))
+  var option = {
+    // title: {
+    //   text: '疫情传播趋势预测图',
+    //   top: '1.5%',
+    //   textStyle: {
+    //     color: '#80ffff',
+    //     fontweight: 'lighter',
+    //     fontfamily: "Times New Roman",
+    //   },
+    // },
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: 'rgba(5, 58, 87, 0.7)',
+      borderColor: 'rgba(216, 216, 216, 0.43)',
+      textStyle: {
+        color: 'rgba(255,255,255,0.8)',
+      },
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985'
+        }
+      },
+      // formatter: (params) => {
+      //   this.leida = params[1].name
+      //   let str = "日期：" + params[1].name + "<br/>"
+      //   for (var i = 0; i < params.length; i++) {
+      //     str += params[i].seriesName + ":" + (params[i].value / 10000) + "万人<br/>"
+      //   }
+      //   return str
+      // }
 
-  // d3.max 取最大值，d3.min 取最小值
+    },
+    legend: {
+      // data: ['易感者', '潜伏者', '感染者', '住院者(两类)', '治愈者', '死亡者'],
+      data: names,
+      type: 'scroll',
 
-  // 序数比例尺 可以通过 xScale.bandwidth() 获取柱状图的宽度
-  const xScale = d3
-    .scaleBand()
-    .domain(data.map((d) => xValue(d)))
-    .range([0, dimensions.boundedWidth])
-    .padding(0.2); // padding 百分比的值
-
-  // 颜色比例尺
-  const chartG = svg
-    .append("g")
-    .style("transform",`translate(${dimensions.margin.left}px, ${dimensions.margin.top}px)`
-    );
-
-  chartG.selectAll("rect")
-    .data(data)
-    .join("rect")
-    .attr("x", (d) => xScale(xValue(d)))
-    .attr("y", (d) => yScale(yValue(d)))
-    .attr("width", xScale.bandwidth())
-    .attr("height", (d) => dimensions.boundedHeight - yScale(yValue(d)))
-    .attr("fill", (d, i) => color(i));
-  // d3 提供了 axisBottom axisLeft 来绘制坐标轴
-  const xAxis = d3.axisBottom(xScale);
-  chartG.append("g")
-    .call(xAxis)
-    // x 轴 默认位置在(0,0)，所以需要往下移
-    .attr("transform", `translate(0, ${dimensions.boundedHeight})`);
-  const yAxis = d3.axisLeft(yScale);
-  chartG.append("g").call(yAxis);
+      show: true,
+      left: 100,
+      top: 1,
+      width: 700,
+      // right: 100,
+      // left:"90%",
+      height: 600,
+      // top:70,
+      // bottom: 20,
+      textStyle: {
+        fontSize: 7,
+        color: "#8392A5",
+      },
+    },
+    dataZoom: {
+      // zoomLock: true,
+      type: "inside",
+      textStyle: {
+        color: "#8392A5",
+      },
+      dataBackground: {
+        areaStyle: {
+          color: "#8392A5",
+        },
+        lineStyle: {
+          opacity: 0.8,
+          color: "#8392A5",
+        },
+      },
+      brushSelect: true,
+    },
+    toolbox: {
+      show: true,
+      feature: {
+        magicType: {
+          type: ['line', 'bar'] //图表类型切换
+        },
+        saveAsImage: {},
+        dataZoom: {}
+      }
+    },
+    grid: {
+      left: '1%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis: [
+      {
+        type: 'category',
+        boundaryGap: false,
+        data: time
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value'
+      }
+    ],
+    series: sereiesData
+  }
+  Chart.setOption(option)
 }
+export default drawStackChart;
