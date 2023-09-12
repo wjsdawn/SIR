@@ -13,25 +13,27 @@
            <div class="add" v-for="(item, index) in this.$store.state.SliderArr[2]" :key="index">
               <el-input class="title"  v-model="interventionParames['names3'][index]" placeholder="参数名" clearable></el-input>
               <span class="colon">:</span>
-              <el-input
+              <el-input-number
                   class="input_bf"
                   placeholder="before"
                   v-model="interventionParames['values3_bf'][index]"
+                  :controls="false"
                   clearable>
-              </el-input>
+              </el-input-number>
               <el-divider direction="vertical"></el-divider>
-              <el-input
+              <el-input-number
                   class="input_af"
                   placeholder="after"
                   v-model="interventionParames['values3_af'][index]"
-                  clearable>
-              </el-input>
+                  clearable
+                  :controls="false">
+              </el-input-number>
               <el-button
                   class="delete"
                   size="small"
                   @click="del(index)">
                   <el-icon ><Close/></el-icon>
-                </el-button>
+              </el-button>
            </div>                  
         </div>
         </el-scrollbar>

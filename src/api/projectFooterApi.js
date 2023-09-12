@@ -3,6 +3,7 @@ import { axiosInstance } from './config';
 export const getPredictDataRequest = (param) => {
     return axiosInstance.post('/getPredictData', {
         params: param['parames'],
-        modelData: param['ModelData']
+        modelData: param['ModelData'],
+        evaluation_p : param['evaluation_p']
     });
 };

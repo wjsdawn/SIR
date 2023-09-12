@@ -32,11 +32,15 @@
     flex:2.5;
 }
 .infectious-header>.MAPE_I{
-    flex:1;
+    flex:1.3;
     align-self:center;
     font-family:"Times New Roman";
     font-size:10px;
 }
+.infectious-header>.infectious-dropdown{
+    flex:0.1
+}
+
 /* #infectious-container {
     position: absolute;
     width: 100%;

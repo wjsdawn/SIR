@@ -91,6 +91,7 @@ export default {
       this.$store.dispatch('getPredictDataAsync', {
         parames: this.$store.state.parames,
         ModelData: this.$store.state.ModelData,
+        evaluation_p: this.$store.state.evaluationPre
       });
     },
     handleCommand(command) {

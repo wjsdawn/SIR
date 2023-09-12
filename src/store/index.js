@@ -45,7 +45,11 @@ const state = {
         'Number_initial':{},
         'transition':[],
         'stateAllNum':null,
-  }
+  },
+  evaluationPre:null,//evaluation的算式
+  MAPE: 0,
+  evaluation_p: null,
+  
 }
 export default createStore({
   state,

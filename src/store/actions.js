@@ -15,7 +15,7 @@ export default {
     context.commit('getBarChartData', await getBarChartDataRequest());
   },
   async getPredictDataAsync(context, payload) {
-    console.log("model",payload)
+    // console.log("model",payload)
     context.commit('getPredictData', await getPredictDataRequest(payload));
   },
   async setParamesAsync(context, payload){ 
@@ -26,6 +26,9 @@ export default {
   },
   async delSliderArrAsync(context,payload){ 
     context.commit('delSliderArr',payload);
+  },
+  async setEvaluationPreAsync(context,payload){ 
+    context.commit('setEvaluationPre',payload);
   }
-  
+ 
 };

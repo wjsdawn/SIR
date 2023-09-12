@@ -5,12 +5,13 @@ export default {
     state.count += payload.amount;
   },
   getPredictData(state, payload) {
-    state.predictData = payload
-    console.log("返回预测值", state.predictData)
+    state.predictData = payload.preData
+    state.evaluation_p = payload.evaluation_p
+    state.MAPE = payload.MAPE
+    
   },
   setParames(state, payload){
     state.parames[payload['name']] = payload['value']
-    console.log("返回预测值", state.parames['localParames'])
   },
   setModelData(state, payload){
     state.ModelData = payload
@@ -21,5 +22,8 @@ export default {
   },
   delSliderArr(state, payload) {
     state.SliderArr[payload['name']].splice(payload['index'], 1)
+  },
+  setEvaluationPre(state, payload) {
+    state.evaluationPre = payload
   }
 };
