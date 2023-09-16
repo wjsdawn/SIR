@@ -2,6 +2,9 @@ import * as echarts from 'echarts'
 let drawLineChart = (container,time,data_T,data_P) => {
     var Chart = echarts.init(document.getElementById(container))
     var option = {
+        tooltip:{
+            trigger: 'axis',
+        },
         grid: {
             left: '1%',
             right: '4%',
@@ -19,7 +22,7 @@ let drawLineChart = (container,time,data_T,data_P) => {
             // top: 1,
             // width:200,
             right: 0,
-          // left:"90%",
+            // left:"90%",
             height:600,
             // top:70,
             // bottom: 20,
@@ -27,16 +30,26 @@ let drawLineChart = (container,time,data_T,data_P) => {
             itemWidth:5,
             itemHeight:5,
             textStyle: {
-              fontSize: 8,
-              color: "#8392A5",
+                fontSize: 8,
+                color: "#8392A5",
             },
-          },
+        },
         xAxis: {
             type: 'category',
-            data: time
+            data: time,
+            axisLabel: {
+                textStyle: {
+                    fontWeight: 'bold' // 设置 x 轴标签字体加粗
+                }
+            },
         },
         yAxis: {
-            type: 'value'
+            type: 'value',
+            axisLabel: {
+                textStyle: {
+                    fontWeight: 'bold' // 设置 x 轴标签字体加粗
+                }
+            },
         },
         series: [
             {

@@ -27,20 +27,49 @@
 
 <script>
 import drawLineChart from "./evaluationHelp";
+import Bus from "@/components/EventBus";
 
 export default {
   name: 'evaluation',
   data() {
     return {
       time: [1,2,3,4,5,6,7],//构造时间序列
+      time1: [],
       data_T: [600, 800, 700, 750, 1100, 1230, 1220],//真实值
+      data_T1: [],
       data_P: [820, 932, 901, 934, 1290, 1330, 1320], //预测值
-      evaluationPre:null
+      data_P1: [],
+      evaluationPre:null,
+      index: 0,
+      intervalId: null,
     }
   },
   mounted() {
-    drawLineChart('infectious-container', this.time, this.data_T, this.data_P)
-    this.time = []
+    Bus.on('play-process', () => {
+      this.intervalId = setInterval(this.processAnimate, 500);
+    });
+    Bus.on('pause-process', () => {
+      clearInterval(this.intervalId);
+    });
+    Bus.on('reset-process',()=>{
+      this.time1=[]
+      this.data_T1=[]
+      this.data_P1=[]
+      this.index=0
+      this.intervalId = setInterval(this.processAnimate, 500);
+    })
+    Bus.on('stop-repeat',()=>{
+      clearInterval(this.intervalId);
+    })
+    Bus.on('forward-progress',()=>{
+      this.processAnimate()
+      this.intervalId = setInterval(this.processAnimate, 250);
+    })
+    Bus.on('start-backward',()=>{
+      this.backAnimate();
+      this.intervalId = setInterval(this.backAnimate, 250);
+    })
+    this.intervalId = setInterval(this.processAnimate, 500);
   },
   computed: {
     lineChartData() {
@@ -52,6 +81,33 @@ export default {
     }
   },
   methods: {
+    processAnimate() {
+      this.time1.push(this.time[this.index]);
+      this.data_T1.push(this.data_T[this.index]);
+      this.data_P1.push(this.data_P[this.index]);
+      this.index += 1;
+      drawLineChart(
+          'infectious-container',
+          this.time1,
+          this.data_T1,
+          this.data_P1
+      );
+      if (this.index === this.time.length) {
+        clearInterval(this.intervalId);
+      }
+    },
+    backAnimate() {
+      this.index -= 1;
+      this.time1.pop();
+      this.data_T1.pop()
+      this.data_P1.pop()
+      drawLineChart(
+          'infectious-container',
+          this.time1,
+          this.data_T1,
+          this.data_P1
+      );
+    },
     predictDataProcess(predictData){
       var pre = predictData;
       var T = this.$store.state.parames['localParames']['days'];;
