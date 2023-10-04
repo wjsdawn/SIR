@@ -59,9 +59,6 @@ export default {
       },
     },
  methods: {
-   formatTooltip(val) {
-     return val;
-   },
    del(index) {
         this.vaccaineParames['names5'].splice(index, 1);
         this.vaccaineParames['values5'].splice(index, 1); //先删除form中value对应索引的值

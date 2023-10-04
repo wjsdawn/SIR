@@ -62,9 +62,6 @@ export default {
       },
     },
  methods: {
-   formatTooltip(val) {
-     return val;
-   },
    del(index) {
         this.interventionParames['names3'].splice(index, 1);
         this.interventionParames['values3_bf'].splice(index, 1); //先删除form中value对应索引的值

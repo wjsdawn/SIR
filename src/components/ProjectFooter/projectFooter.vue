@@ -59,17 +59,7 @@
   </div>
 </template>
 <script>
-import {
-  Delete,
-  Edit,
-  Search,
-  Share,
-  Upload,
-  Check,
-  Plus,
-  ArrowDown,
-  Right,
-} from '@element-plus/icons-vue';
+import { Check } from '@element-plus/icons-vue';
 
 import parameterLeft from './parameterLeft.vue';
 import parameterMiddle from './parameterMiddle.vue';

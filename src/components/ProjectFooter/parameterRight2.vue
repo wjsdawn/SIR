@@ -55,9 +55,6 @@ export default {
       },
     },
  methods: {
-   formatTooltip(val) {
-     return val / 100;
-   },
    del(index) {
         this.healthParames['names4'].splice(index, 1);
         this.healthParames['values4'].splice(index, 1); //先删除form中value对应索引的值

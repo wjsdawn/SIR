@@ -7,13 +7,11 @@
         <el-scrollbar style="height: 100%;">
         <div class="parameterMiddle-container" style="max-height: 100px;" >
             <div class = "container-top">
-                <!-- <span class="basicNum">BasicNumber(R0)</span> -->
                 <span class="beta">Beta</span>
                 <el-slider class="sli-beta"  input-size="mini" v-model="epidemicParames['Beta']" label="11" show-input
                 :show-input-controls="false" :max="500" :format-tooltip="formatTooltip" ></el-slider>
             </div>
             <div class = "container-middle">
-                <!-- <span class="infectiousTime">InfectiousTime(Tf)</span> -->
                 <span class="alpha">Alpha</span>
                 <el-slider class="sli-alpha"  input-size="mini" v-model="epidemicParames['Alpha']" label="11" show-input
                 :show-input-controls="false" :max=1 :step="0.001" :format-tooltip="formatTooltip" ></el-slider>
@@ -56,7 +54,6 @@ export default {
      Beta: 0,
      Alpha: 0,
      Gamma: 0,
-     array: [],
      names2: [],
      values2: []
     }
@@ -72,11 +69,7 @@ export default {
       },
     },
  methods: {
-   formatTooltip(val) {
-     return val;
-   },
    del(index) {
-       
         this.epidemicParames['names2'].splice(index, 1);
         this.epidemicParames['values2'].splice(index, 1); //先删除form中value对应索引的值
         this.$store.dispatch('delSliderArrAsync',{'name':1,'index':index})//然后删除array对应索引的值，实现点击删除按钮，减少input框效果

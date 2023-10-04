@@ -13,7 +13,6 @@ export default {
   name: 'StackChart',
   data() {
     return {
-      // stackChartData: [],
       names: ['易感者', '潜伏者', '感染者', '移除者'], //各类型人群名
       numbers: [
                 [9, 8, 7, 7, 6, 4, 2],
@@ -27,43 +26,27 @@ export default {
           name: '易感者',
           type: 'line',
           stack: 'Total',
-          areaStyle: {},
-          emphasis: {
-            focus: 'series',
-          },
           data: [9, 8, 7, 7, 6, 4, 2],
         },
         {
           name: '潜伏者',
           type: 'line',
           stack: 'Total',
-          areaStyle: {},
-          emphasis: {
-            focus: 'series',
-          },
           data: [4, 5, 6, 7, 4, 3, 1],
         },
         {
           name: '感染者',
           type: 'line',
-          stack: 'Total',
-          areaStyle: {},
-          emphasis: {
-            focus: 'series',
-          },
+          stack: 'Total',       
           data: [7, 9, 9, 10, 6, 5, 4],
         },
         {
           name: '移除者',
           type: 'line',
           stack: 'Total',
-          areaStyle: {},
-          emphasis: {
-            focus: 'series',
-          },
           data: [1, 3, 5, 6, 7, 8, 9],
         },
-      ], //动态seireis
+      ],
     };
   },
   mounted() {
@@ -74,15 +57,14 @@ export default {
       this.sereiesData
     ),
       //渲染完成后，清空数组，避免不同阶段push的堆积
-      (this.names = []);
-    this.numbers = {};
-    this.time = [];
-    this.stateNum = 0;
-    this.sereiesData = [];
+      this.names = [];
+      this.numbers = {};
+      this.time = [];
+      this.stateNum = 0;
+      this.sereiesData = [];
   },
   computed: {
     stackChartData() {
-      // console.log('computed值', this.$store.state.predictData);
       return this.$store.state.predictData;
     },
   },
@@ -102,8 +84,6 @@ export default {
               this.numbers[j].push(pre[i][j]);
         }
       }
-     
-      // this.stateNum = this.$store.state.ModelData.stateAllNum
       for (var m = 1; m <= T; m++) {
         this.time.push(m);
       }
@@ -114,9 +94,6 @@ export default {
           name: this.names[i],
           type: 'line',
           stack: 'Total',
-          emphasis: {
-            focus: 'series',
-          },
           data: this.numbers[i],
         };
         this.sereiesData.push(item);

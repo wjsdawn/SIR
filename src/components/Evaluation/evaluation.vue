@@ -52,8 +52,7 @@ export default {
     }
   },
   methods: {
-    predictDataProcess(predictData){
-      var pre = predictData;
+    predictDataProcess(predictData) {
       var T = this.$store.state.parames['localParames']['days'];;
       //构造横坐标时间序列
       for (var m = 1; m <= T; m++) {
