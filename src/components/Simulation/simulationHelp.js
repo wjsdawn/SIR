@@ -66,12 +66,22 @@ let drawStackChart = (container, names,time,sereiesData) => {
       {
         type: 'category',
         boundaryGap: false,
-        data: time
+        data: time,
+        axisLabel: {
+          textStyle: {
+            fontWeight: 'bold' // 设置 x 轴标签字体加粗
+          }
+        },
       }
     ],
     yAxis: [
       {
-        type: 'value'
+        type: 'value',
+        axisLabel: {
+          textStyle: {
+            fontWeight: 'bold' // 设置 x 轴标签字体加粗
+          }
+        },
       }
     ],
     series: sereiesData
