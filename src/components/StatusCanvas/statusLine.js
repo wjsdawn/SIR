@@ -122,7 +122,12 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
         console.log(this.id)
         setLineData(this.id)
       })
-    // 添加文字
+    // 添加鼠标移入事件
+    d3.selectAll('.line')
+      .on('mouseover',function(d,e){
+        console.log('asd')
+        d3.select(this).style('cursor','pointer')
+    })
   }
 
   function updateCoverLine(){

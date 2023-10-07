@@ -360,6 +360,14 @@ export default {
       this.statusMonitor.count += 1;
       this.statusMonitor.id = id;
     },
+    deleteStatus(id){
+      let that = this;
+      that.statusComponentList.forEach((component,i)=>{
+        if(component.id==id){
+          that.statusComponentList.splice(i,1)
+        }
+      })
+    },
     getLineIsDrawing() {
       return this.$store.state.lineIsdDrawing;
     },
@@ -468,6 +476,7 @@ export default {
     window.componentConnectEnd = that.componentConnectEnd
     window.statusMonitorAdd = that.statusMonitorAdd
     window.setLineData = that.setLineData
+    window.deleteStatus = that.deleteStatus
     // 线条的动画
     setInterval(function () {
       that.lineList.forEach(function (line) {
@@ -565,7 +574,6 @@ export default {
   height: 250px;
   background: azure;
 }
-
 #lineForm {
   position: absolute;
   top: 30px;

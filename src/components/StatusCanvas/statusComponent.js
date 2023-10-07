@@ -46,6 +46,7 @@ export default class statusComponent {
       .attr('id',that.id)
       .on('dblclick',function() {
         that.container.remove()
+        deleteStatus(that.id)
       })
     //事件添加
     this.container.call(d3.drag()
@@ -140,6 +141,7 @@ export default class statusComponent {
       // .attr('x',that.x)
       .attr('id',`${that.id}-rect`)
       // .attr('y',that.y)
+      .attr('class','status')
       .attr('width',d=>d.rectWidth)
       .attr('height',d=>d.rectHeight)
       .attr('fill',d=>d.rectFill)
@@ -155,6 +157,7 @@ export default class statusComponent {
           .attr('y','-10')
           .attr('fill','#909399')
           .text(that.description)
+        d3.select(this).style('cursor','pointer')
       })
       .on('mouseout',function(d) {
         d3.select("#component-text").remove()
