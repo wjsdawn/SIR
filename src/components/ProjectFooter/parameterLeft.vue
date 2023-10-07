@@ -74,6 +74,7 @@ export default {
       localParames: {
         handler(newVal) {
           this.$store.dispatch('setParamesAsync', { 'name': 'localParames', 'value': newVal })
+          this.$store.state.startMaxDay = newVal.days===0?400:newVal.days
         },
         immediate: true,
         deep: true

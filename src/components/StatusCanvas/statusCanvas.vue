@@ -1,111 +1,84 @@
 <template>
   <div class="statusBlue">
-<!--    <h1>{{ msg }}</h1>-->
-<!--    <p>{{ pieChartData && pieChartData[0] }}</p>-->
+    <!--    <h1>{{ msg }}</h1>-->
+    <!--    <p>{{ pieChartData && pieChartData[0] }}</p>-->
     <div class="statusCanvas-header">
       <div id="statusCanvas-title">Model</div>
-        <el-tooltip
-                content="<span>添加SEIR模型</span>"
-                raw-content
-        >
-            <div id="generate-default-icon" @click="DefaultGenerate"></div>
-        </el-tooltip>
-        <el-tooltip
-                content="<span>关闭文字提示</span>"
-                raw-content
-        >
-            <div id="preview-icon" @click="preview" v-if="previewIcon"></div>
-        </el-tooltip>
-        <el-tooltip
-                content="<span>打开文字提示</span>"
-                raw-content
-        >
-            <div id="preview-close-icon" @click="previewClose" v-if="!previewIcon"></div>
-        </el-tooltip>
-        <el-tooltip
-                content="<span>发送矩阵数据</span>"
-                raw-content
-        >
-            <div id="generate-Martix-icon" @click="MatrixGenerate"></div>
-        </el-tooltip>
-        <el-tooltip
-                content="<span>删减状态</span>"
-                raw-content
-        >
-            <div id="minuc-icon"></div>
-        </el-tooltip>
-        <el-tooltip
-                content="<span>添加状态</span>"
-                raw-content
-        >
-            <div id="plus-icon" @click="statusCanvasClick"></div>
-        </el-tooltip>
+      <el-tooltip content="<span>添加SEIR模型</span>" raw-content>
+        <div id="generate-default-icon" @click="DefaultGenerate"></div>
+      </el-tooltip>
+      <el-tooltip content="<span>关闭文字提示</span>" raw-content>
+        <div id="preview-icon" @click="preview" v-if="previewIcon"></div>
+      </el-tooltip>
+      <el-tooltip content="<span>打开文字提示</span>" raw-content>
+        <div id="preview-close-icon" @click="previewClose" v-if="!previewIcon"></div>
+      </el-tooltip>
+      <el-tooltip content="<span>发送矩阵数据</span>" raw-content>
+        <div id="generate-Martix-icon" @click="MatrixGenerate"></div>
+      </el-tooltip>
+      <el-tooltip content="<span>删减状态</span>" raw-content>
+        <div id="minuc-icon"></div>
+      </el-tooltip>
+      <el-tooltip content="<span>添加状态</span>" raw-content>
+        <div id="plus-icon" @click="statusCanvasClick"></div>
+      </el-tooltip>
     </div>
     <div class="blue-container">
-        <svg id="blue-editor" style="width: 100%;height: 100%" ></svg>
+      <svg id="blue-editor" style="width: 100%;height: 100%"></svg>
     </div>
-      <div id="statusForm" v-if="formBool" @dblclick="closeStatusForm">
-          <el-form :inline="true" :model="formData" class="demo-form-inline">
-              <el-form-item label="Name:">
-                  <el-input v-model="formData.name" placeholder="name" size="small" clearable />
-              </el-form-item>
-              <el-form-item label="StatusType:">
-                  <el-select v-model="formData.statusType" class="m-2" placeholder="Select" size="small" filterable allow-create>
-                      <el-option
-                              v-for="item in statusTypes"
-                              :key="item.value"
-                              :label="item.label"
-                              :value="item.value"
-                      />
-                  </el-select>
-<!--                  <el-input v-model="formData.statusType" placeholder="statusType" size="small" clearable />-->
-              </el-form-item>
-              <el-form-item label="Color:">
-                  <el-input v-model="formData.color" placeholder="123" size="small" style="width: 70%" clearable />
-                  <el-color-picker v-model="formData.color" show-alpha />
-              </el-form-item>
-              <el-form-item label="Description:">
-                  <el-input v-model="formData.description" placeholder="description" size="small" clearable />
-              </el-form-item>
-              <el-form-item label="InitialValue:">
-                  <el-input v-model="formData.initialValue" placeholder="initialValue" size="small" clearable />
-              </el-form-item>
-          </el-form>
-      </div>
-      <div id="lineForm" v-if="lineDataBool" @dblclick="closeLineForm">
-          <el-form :inline="true" :model="lineConnectData" class="demo-form-inline">
-              <el-form-item label="ID:">
-                  <el-input v-model="lineConnectData.id" placeholder="id" size="small" disabled clearable />
-              </el-form-item>
-              <el-form-item label="Name:">
-                  <el-input v-model="lineConnectData.name" placeholder="name" size="small"  clearable />
-              </el-form-item>
-              <el-form-item label="Transition:">
-                  <el-select v-model="lineConnectData.lineStatus" class="m-2" placeholder="Select" size="small" filterable allow-create>
-                      <el-option
-                              v-for="item in lineTypes"
-                              :key="item.value"
-                              :label="item.label"
-                              :value="item.value"
-                      />
-                  </el-select>
-                  <!--                  <el-input v-model="formData.statusType" placeholder="statusType" size="small" clearable />-->
-              </el-form-item>
-              <el-form-item label="Color:">
-                  <el-input v-model="lineConnectData.strokeColor" placeholder="123" size="small" style="width: 70%" clearable />
-                  <el-color-picker v-model="lineConnectData.strokeColor" show-alpha />
-              </el-form-item>
-              <el-form-item label="Description:">
-                  <el-input v-model="lineConnectData.transition" placeholder="description" size="small" clearable />
-              </el-form-item>
-          </el-form>
-      </div>
+    <div id="statusForm" v-if="formBool" @dblclick="closeStatusForm">
+      <el-form :inline="true" :model="formData" class="demo-form-inline">
+        <el-form-item label="Name:">
+          <el-input v-model="formData.name" placeholder="name" size="small" clearable />
+        </el-form-item>
+        <el-form-item label="StatusType:">
+          <el-select v-model="formData.statusType" class="m-2" placeholder="Select" size="small" filterable allow-create>
+            <el-option v-for="item in statusTypes" :key="item.value" :label="item.label" :value="item.value" />
+          </el-select>
+          <!--                  <el-input v-model="formData.statusType" placeholder="statusType" size="small" clearable />-->
+        </el-form-item>
+        <el-form-item label="Color:">
+          <el-input v-model="formData.color" placeholder="123" size="small" style="width: 70%" clearable />
+          <el-color-picker v-model="formData.color" show-alpha />
+        </el-form-item>
+        <el-form-item label="Description:">
+          <el-input v-model="formData.description" placeholder="description" size="small" clearable />
+        </el-form-item>
+        <el-form-item label="InitialValue:">
+          <el-input v-model="formData.initialValue" placeholder="initialValue" size="small" clearable />
+        </el-form-item>
+      </el-form>
+    </div>
+    <div id="lineForm" v-if="lineDataBool" @dblclick="closeLineForm">
+      <el-form :inline="true" :model="lineConnectData" class="demo-form-inline">
+        <el-form-item label="ID:">
+          <el-input v-model="lineConnectData.id" placeholder="id" size="small" disabled clearable />
+        </el-form-item>
+        <el-form-item label="Name:">
+          <el-input v-model="lineConnectData.name" placeholder="name" size="small" clearable />
+        </el-form-item>
+        <el-form-item label="Transition:">
+          <el-select v-model="lineConnectData.lineStatus" class="m-2" placeholder="Select" size="small" filterable
+            allow-create>
+            <el-option v-for="item in lineTypes" :key="item.value" :label="item.label" :value="item.value" />
+          </el-select>
+          <!--                  <el-input v-model="formData.statusType" placeholder="statusType" size="small" clearable />-->
+        </el-form-item>
+        <el-form-item label="Color:">
+          <el-input v-model="lineConnectData.strokeColor" placeholder="123" size="small" style="width: 70%" clearable />
+          <el-color-picker v-model="lineConnectData.strokeColor" show-alpha />
+        </el-form-item>
+        <el-form-item label="Description:">
+          <el-input v-model="lineConnectData.transition" placeholder="description" size="small" clearable />
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
 <script>
-import * as d3  from 'd3'
-import { ref,reactive } from 'vue'
+import * as d3 from 'd3'
+import { ref, reactive } from 'vue'
 import statusLine from './statusLine';
 import statusComponent from "./statusComponent";
 import statusLine2 from './statusLine2';
@@ -126,34 +99,34 @@ export default {
     pieChartData: Array,
   },
   data() {
-    return{
-      previewIcon:true,
-      ModelData:{
-        'Number_initial':{},
-        'transition':[],
-        'N':null,
+    return {
+      previewIcon: true,
+      ModelData: {
+        'Number_initial': {},
+        'transition': [],
+        'N': null,
       },
-      drawingLine:"",
-      statusMonitor:{
-        count:0,
-        id:""
+      drawingLine: "",
+      statusMonitor: {
+        count: 0,
+        id: ""
       },
-      exstingPorts:[],
-      statusComponentList:[],
-      lineList:[],
-      formData:{
-            id:'',
-            name:'',
-            color:'',
-            description:'',
-            initialValue:'',
-            statusType:""
+      exstingPorts: [],
+      statusComponentList: [],
+      lineList: [],
+      formData: {
+        id: '',
+        name: '',
+        color: '',
+        description: '',
+        initialValue: '',
+        statusType: ""
       },
-      formBool:false,
-      line:null,
-      lineConnectData:{},
-      lineDataBool:false,
-      statusTypes:[
+      formBool: false,
+      line: null,
+      lineConnectData: {},
+      lineDataBool: false,
+      statusTypes: [
         {
           value: 'Susceptible',
           label: 'Susceptible',
@@ -171,7 +144,7 @@ export default {
           label: 'Recovered',
         },
       ],
-      lineTypes:[
+      lineTypes: [
         {
           value: 'beta',
           label: 'beta',
@@ -187,45 +160,46 @@ export default {
       ],
     }
   },
-  watch:{
-    formData:{
-      handler(newVal){
+  watch: {
+    formData: {
+      handler(newVal) {
         console.log(this.formData.id);
         console.log(this.formData.id.split('-')[1]);
         let tempID = parseInt(this.formData.id.split('-')[1]);
         this.statusComponentList[tempID].setData(this.formData);
         this.statusComponentList[tempID].reDrawComponent();
       },
-      deep:true
+      deep: true
     },
-    lineConnectData:{
-      handler(newVal){
+    lineConnectData: {
+      handler(newVal) {
         let that = this
         console.log(newVal);
-        that.lineList.forEach(function(line,i) {
+        that.lineList.forEach(function (line, i) {
           let item = line.getConnectInfo()
-          if(newVal.id == item.lineId){
+          if (newVal.id == item.lineId) {
             line.setAttrData(newVal);
           }
         })
       },
-      deep:true
+      deep: true
     },
-    statusComponentList:{
-      handler(curVal,oldVal){
-        console.log(this.statusComponentList);
-        console.log("statusComponent改变")
+    statusComponentList: {
+      handler(curVal, oldVal) {
+        this.$store.state.evaluatedState = this.statusComponentList.map(dict => dict.statusType)
+        console.log("statusComponent改变", this.statusComponentList);
+        console.log(this.statusComponentList.map(dict => dict.statusType))
       },
-      deep:true
+      deep: true
     },
-    statusMonitor:{
-      handler(newValue,oldValue){
+    statusMonitor: {
+      handler(newValue, oldValue) {
         let id = this.statusMonitor.id
-        let i = id[id.length-1]
+        let i = id[id.length - 1]
         let curEle = this.statusComponentList[i]
         let curPos = curEle.getPos()
-        if(this.lineList.length>0){
-          this.lineList.forEach(function(line,i) {
+        if (this.lineList.length > 0) {
+          this.lineList.forEach(function (line, i) {
             let connectInfo = line.getConnectInfo()
             line.parentPosUpdated(
               curPos.dx,
@@ -238,19 +212,19 @@ export default {
           })
         }
       },
-      deep:true
+      deep: true
     }
   },
-  methods:{
-    preview(){
+  methods: {
+    preview() {
       this.previewIcon = !this.previewIcon
-      d3.selectAll('.statusDimension').style('display','none')
-      d3.selectAll('.line-text').style('display','none')
+      d3.selectAll('.statusDimension').style('display', 'none')
+      d3.selectAll('.line-text').style('display', 'none')
     },
-    previewClose(){
+    previewClose() {
       this.previewIcon = !this.previewIcon
-      d3.selectAll('.statusDimension').style('display','block')
-      d3.selectAll('.line-text').style('display','block')
+      d3.selectAll('.statusDimension').style('display', 'block')
+      d3.selectAll('.line-text').style('display', 'block')
       // console.log(d3.selectAll('.line'));
       // // 添加线的文本
       // let item = d3.selectAll('.line')['_groups'][0]
@@ -275,59 +249,59 @@ export default {
       //     .text('asdasd')
       // }
     },
-    DefaultGenerate(){
+    DefaultGenerate() {
       let that = this;
       // 绘制状态组件
       let container = d3.select("#blue-editor")
-      let color = ["#5c82b6","#fbca9c","#f23498","#6fbd6d"]
-      let statusType = ["Susceptible","Exposed","Infected","Recovered"]
+      let color = ["#5c82b6", "#fbca9c", "#f23498", "#6fbd6d"]
+      let statusType = ["Susceptible", "Exposed", "Infected", "Recovered"]
       let svgWidth = container.node().getBoundingClientRect().width
       let svgHeight = container.node().getBoundingClientRect().height
-      for(let i=0;i<4;i++){
+      for (let i = 0; i < 4; i++) {
         let tempId = that.statusComponentList.length
         let options = {
-          id:`status-${tempId}`,
-          name:"名字",
-          x:svgWidth/2-45,
-          y:20 + (svgHeight/4)*i,
-          color:color[i],
-          statusType:statusType[i]
+          id: `status-${tempId}`,
+          name: "名字",
+          x: svgWidth / 2 - 45,
+          y: 20 + (svgHeight / 4) * i,
+          color: color[i],
+          statusType: statusType[i]
         }
-        let temp = new statusComponent(container,options)
+        let temp = new statusComponent(container, options)
         that.statusComponentList.push(temp)
       }
       // 绘制线条,连接点的顺序为左右上下
       let allPorts = []
-      that.statusComponentList.forEach(function(component,i) {
-          let item = component.getPorts()
-          for(let value of Object.values(item)){
-            allPorts.push(value)
-          }
+      that.statusComponentList.forEach(function (component, i) {
+        let item = component.getPorts()
+        for (let value of Object.values(item)) {
+          allPorts.push(value)
+        }
       });
       console.log(allPorts)
-      for(let i=0;i<3;i++){
-        let x = allPorts[3+i*4].parentX + allPorts[3+i*4].x
-        let y = allPorts[3+i*4].parentY + allPorts[3+i*4].y
-        let x2 = allPorts[6+i*4].parentX + allPorts[6+i*4].x
-        let y2 = allPorts[6+i*4].parentY + allPorts[6+i*4].y
+      for (let i = 0; i < 3; i++) {
+        let x = allPorts[3 + i * 4].parentX + allPorts[3 + i * 4].x
+        let y = allPorts[3 + i * 4].parentY + allPorts[3 + i * 4].y
+        let x2 = allPorts[6 + i * 4].parentX + allPorts[6 + i * 4].x
+        let y2 = allPorts[6 + i * 4].parentY + allPorts[6 + i * 4].y
         let lineId = `line-${that.lineList.length}`
         let line = (that.drawingLine = new statusLine(
           container,
           "line",
-          [x,y],
+          [x, y],
           that.statusComponentList[i],
-          allPorts[i*4].id,
+          allPorts[i * 4].id,
           '#ffe700',
           lineId,
         ))
-        debugger;
+        // debugger;
         that.lineList.push(line);
-        line.dynamicGenerateCurveLine([x,y])
-        line.setLine(that.statusComponentList[i+1],[x2,y2])
+        line.dynamicGenerateCurveLine([x, y])
+        line.setLine(that.statusComponentList[i + 1], [x2, y2])
       }
       console.log(that.lineList);
     },
-    MatrixGenerate(){
+    MatrixGenerate() {
       let that = this
       console.log(this.statusComponentList);
       console.log(this.lineList);
@@ -335,20 +309,20 @@ export default {
       that.ModelData['N'] = that.statusComponentList.length
       that.setTransitionMatrix();
       console.log(that.ModelData);
-      that.$store.commit('setModelData',that.ModelData)
+      that.$store.commit('setModelData', that.ModelData)
       console.log(that.$store.state.ModelData);
     },
-    setStatusNumber(){
+    setStatusNumber() {
       let that = this;
-      that.statusComponentList.forEach((item)=>{
+      that.statusComponentList.forEach((item) => {
         that.ModelData['Number_initial'][item.statusType] = item.initialValue
       })
     },
-    setTransitionMatrix(){
+    setTransitionMatrix() {
       let that = this;
       let arr = that.createArray(that.ModelData['N'])
       console.log(arr);
-      that.lineList.forEach((line)=>{
+      that.lineList.forEach((line) => {
         let item = line.getConnectInfo()
         let i = that.getStatusPosition(item.sourceId)
         let j = that.getStatusPosition(item.targetId)
@@ -358,64 +332,64 @@ export default {
       })
       that.ModelData['transition'] = arr;
     },
-    createArray(n){
+    createArray(n) {
       let arr = []
-      for(let i=0;i<n;i++){
+      for (let i = 0; i < n; i++) {
         arr[i] = []
-        for(let j=0;j<n;j++){
+        for (let j = 0; j < n; j++) {
           arr[i][j] = 0
         }
       }
       return arr;
     },
-    getStatusPosition(id){
+    getStatusPosition(id) {
       let that = this;
       let d = null
-      that.statusComponentList.forEach((item,index)=>{
-        if(item.id==id){
+      that.statusComponentList.forEach((item, index) => {
+        if (item.id == id) {
           d = index
         }
       })
       return d
     },
-    lineEvent(){
-      let event = d3.dispatch('click','dvlclick')
+    lineEvent() {
+      let event = d3.dispatch('click', 'dvlclick')
       console.log(event);
     },
-    statusMonitorAdd(id){
+    statusMonitorAdd(id) {
       this.statusMonitor.count += 1;
       this.statusMonitor.id = id;
     },
-    getLineIsDrawing(){
+    getLineIsDrawing() {
       return this.$store.state.lineIsdDrawing;
     },
-    setLineIsDrawing(){
+    setLineIsDrawing() {
       this.$store.state.lineIsdDrawing = !this.$store.state.lineIsdDrawing;
     },
-    closeStatusForm(){
+    closeStatusForm() {
       this.formBool = false
     },
-    closeLineForm(){
+    closeLineForm() {
       this.lineDataBool = false
     },
-    setStatusForm(data){
+    setStatusForm(data) {
       // 设置数据
       let that = this;
       that.formData = data
       that.lineDataBool = false
       that.formBool = true;
     },
-    setLineData(id){
+    setLineData(id) {
       let that = this;
-      that.lineList.forEach(function(line,i) {
+      that.lineList.forEach(function (line, i) {
         let item = line.getConnectInfo()
-        if(id == item.lineId){
+        if (id == item.lineId) {
           that.lineConnectData = {
-            id:item.lineId,
-            name:item.name,
-            transition:item.transition,
-            strokeColor:item.strokeColor,
-            lineStatus:item.status
+            id: item.lineId,
+            name: item.name,
+            transition: item.transition,
+            strokeColor: item.strokeColor,
+            lineStatus: item.status
           }
         }
       })
@@ -423,7 +397,7 @@ export default {
       that.lineDataBool = true
       console.log(that.lineConnectData);
     },
-    componentConnect(e){
+    componentConnect(e) {
       let that = this
       console.log("绘制连接线")
       let container = d3.select("#blue-editor")
@@ -434,12 +408,12 @@ export default {
       //   that.line.previewCurve(this)
       // })
       let lineId = `line-${that.lineList.length}`
-      console.log([e.x,e.y])
-      debugger;
+      console.log([e.x, e.y])
+      // debugger;
       let line = (that.drawingLine = new statusLine(
         container,
         "line",
-        [e.x,e.y],
+        [e.x, e.y],
         e.component,
         e.parent,
         '#ffe700',
@@ -448,11 +422,11 @@ export default {
       console.log(container);
       that.lineList.push(line);
       let allPorts = []
-      that.statusComponentList.forEach(function(component,i) {
-        if(component.id!=e.parent){
+      that.statusComponentList.forEach(function (component, i) {
+        if (component.id != e.parent) {
           console.log(component.getPorts());
           let item = component.getPorts()
-          for(let value of Object.values(item)){
+          for (let value of Object.values(item)) {
             allPorts.push(value)
           }
           // allPorts.push(component.getPorts())
@@ -460,28 +434,28 @@ export default {
       });
       that.exstingPorts = allPorts
       console.log(that.exstingPorts);
-      container.on("mousemove",function () {
-        if(that.drawingLine.getConnectInfo()['target']==""){
+      container.on("mousemove", function () {
+        if (that.drawingLine.getConnectInfo()['target'] == "") {
           let coordinates = d3.mouse(this)
           line.dynamicGenerateCurveLine(coordinates)
-          line.findNearestPoint(coordinates,that.exstingPorts)
+          line.findNearestPoint(coordinates, that.exstingPorts)
         }
       })
     },
-    componentConnectEnd(){
-      let that =this;
+    componentConnectEnd() {
+      let that = this;
       that.line.endDrawing();
     },
-    statusCanvasClick(e){
+    statusCanvasClick(e) {
       let that = this;
       // 绘制状态组件
       let container = d3.select("#blue-editor")
       let tempId = that.statusComponentList.length
       let options = {
-        id:`status-${tempId}`,
-        name:"名字"
+        id: `status-${tempId}`,
+        name: "名字"
       }
-      let temp = new statusComponent(container,options)
+      let temp = new statusComponent(container, options)
       that.statusComponentList.push(temp)
     }
   },
@@ -495,8 +469,8 @@ export default {
     window.statusMonitorAdd = that.statusMonitorAdd
     window.setLineData = that.setLineData
     // 线条的动画
-    setInterval(function() {
-      that.lineList.forEach(function(line) {
+    setInterval(function () {
+      that.lineList.forEach(function (line) {
         line.animate();
       })
     })
@@ -508,87 +482,99 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.statusBlue{
-    position:relative;
-    width: 100%;
+.statusBlue {
+  position: relative;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-.statusBlue>.statusCanvas-header{
+
+.statusBlue>.statusCanvas-header {
   flex: 0.2;
   display: flex;
   justify-content: center;
   align-items: center;
-    margin: 5px;
+  margin: 5px;
 }
-.statusBlue>.blue-container{
+
+.statusBlue>.blue-container {
   flex: 4;
 }
-#statusCanvas-title{
-    height: 100%;
-    flex: 1;
-    text-align: left;
-    font-size: 1.5em;
+
+#statusCanvas-title {
+  height: 100%;
+  flex: 1;
+  text-align: left;
+  font-size: 1.5em;
 }
-#preview-close-icon{
-    height: 100%;
-    flex: 0.07;
-    background: url("../../assets/关闭预览.png") no-repeat center;
-    background-size: 100% 100%;
-    cursor:pointer;
+
+#preview-close-icon {
+  height: 100%;
+  flex: 0.07;
+  background: url("../../assets/关闭预览.png") no-repeat center;
+  background-size: 100% 100%;
+  cursor: pointer;
 }
-#preview-icon{
-    height: 100%;
-    flex: 0.07;
-    background: url("../../assets/预览 .png") no-repeat center;
-    background-size: 100% 100%;
-    cursor:pointer;
+
+#preview-icon {
+  height: 100%;
+  flex: 0.07;
+  background: url("../../assets/预览 .png") no-repeat center;
+  background-size: 100% 100%;
+  cursor: pointer;
 }
-#generate-default-icon{
-    height: 100%;
-    flex: 0.07;
-    background: url("../../assets/生成配置.png") no-repeat center;
-    background-size: 100% 100%;
-    cursor:pointer;
+
+#generate-default-icon {
+  height: 100%;
+  flex: 0.07;
+  background: url("../../assets/生成配置.png") no-repeat center;
+  background-size: 100% 100%;
+  cursor: pointer;
 }
-#generate-Martix-icon{
-    height: 100%;
-    flex: 0.07;
-    background: url("../../assets/代码生成.png") no-repeat center;
-    background-size: 100% 100%;
-    cursor:pointer;
+
+#generate-Martix-icon {
+  height: 100%;
+  flex: 0.07;
+  background: url("../../assets/代码生成.png") no-repeat center;
+  background-size: 100% 100%;
+  cursor: pointer;
 }
-#plus-icon{
-    height: 100%;
-    flex: 0.07;
-    background: url("../../assets/加.png") no-repeat center;
-    background-size: 100% 100%;
-    /*border: 2px solid black;*/
-    cursor:pointer;
+
+#plus-icon {
+  height: 100%;
+  flex: 0.07;
+  background: url("../../assets/加.png") no-repeat center;
+  background-size: 100% 100%;
+  /*border: 2px solid black;*/
+  cursor: pointer;
 }
-#minuc-icon{
-    height: 100%;
-    flex: 0.07;
-    background: url("../../assets/减.png") no-repeat center;
-    background-size: 100% 100%;
-    cursor:pointer;
+
+#minuc-icon {
+  height: 100%;
+  flex: 0.07;
+  background: url("../../assets/减.png") no-repeat center;
+  background-size: 100% 100%;
+  cursor: pointer;
 }
-#statusForm{
-    position: absolute;
-    top:30px;
-    width:200px;
-    height:250px;
-    background: azure;
+
+#statusForm {
+  position: absolute;
+  top: 30px;
+  width: 200px;
+  height: 250px;
+  background: azure;
 }
-#lineForm{
-    position: absolute;
-    top:30px;
-    width:200px;
-    height:250px;
-    background: azure;
+
+#lineForm {
+  position: absolute;
+  top: 30px;
+  width: 200px;
+  height: 250px;
+  background: azure;
 }
-.g-line{
-    z-index: 100;
+
+.g-line {
+  z-index: 100;
 }
 </style>

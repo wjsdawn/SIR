@@ -288,7 +288,7 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
     attribu.randomCoverId = "linearColor" + String(new Date()-0)
   }
   this.parentPosUpdated = function(dx, dy, inPorts, outPorts, curEleid,status) {
-    debugger;
+    // debugger;
     if(attribu.sourceId == curEleid){
       attribu.storePoints[0][0] += dx
       attribu.storePoints[0][1] += dy
@@ -360,7 +360,7 @@ let TextBlueLine = function(container, parent, point, source, sourceid, coverCol
       })
       if (nearPoints[0] != undefined && nearPoints[0] != null) {
         attribu.container.on('mousemove.circle', null)
-        debugger;
+        // debugger;
         attribu.targetPort = nearPoints[0].port
         attribu.targetParent = nearPoints[0].port.id
         attribu.storePoints[1] = nearPoints[0].pos

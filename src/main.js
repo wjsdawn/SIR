@@ -9,6 +9,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 
 const app = createApp(App)
+app.config.warnHandler = () => null;
 app.use(ElementPlus)
 app.use(store).use(router).mount('#app')
 

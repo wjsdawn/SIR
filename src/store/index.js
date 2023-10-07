@@ -12,7 +12,7 @@ const state = {
   parames: {
     localParames: {
       'population': 0,
-      'days': 7,
+      'days': 0,
       'names1': [],
       'values1': [],
     },
@@ -46,9 +46,34 @@ const state = {
         'transition':[],
         'stateAllNum':null,
   },
+  //用来记录评估数据
+  evaluationList: [],
+  
+  //后续可能删除的无用变量
   evaluationPre:null,//evaluation的算式
   MAPE: 0,
   evaluation_p: null,
+
+  evaluatedState:[],
+
+  startMaxDay: null,//参数面板startDay的最大值
+  isShowSubmit:false,//是否展现参数设置面板的提交按钮
+  EvaluationDate:{
+    TruthData:{
+      upload:false,
+      select:"",
+      file:null
+    },
+    StartDay:"",
+    EvaluatedState:{
+      select: "",
+      evaluationPre:""
+    },
+    Metrics:{
+      MAPE:false,
+      RMSE:false
+    }
+  }
   
 }
 export default createStore({

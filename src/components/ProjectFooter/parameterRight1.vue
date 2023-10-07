@@ -8,7 +8,7 @@
            <div class="start-day">
              <span class="startday-title">StartDay</span>
              <el-slider class="sli-startday"  input-size="mini" v-model="interventionParames['sday']" label="11" show-input
-              :show-input-controls="false" :max="400" :format-tooltip="formatTooltip" ></el-slider>
+              :show-input-controls="false" :max="this.$store.state.startMaxDay" :format-tooltip="formatTooltip" ></el-slider>
            </div>
            <div class="add" v-for="(item, index) in this.$store.state.SliderArr[2]" :key="index">
               <el-input class="title"  v-model="interventionParames['names3'][index]" placeholder="参数名" clearable></el-input>
