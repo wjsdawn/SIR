@@ -95,40 +95,40 @@ export default {
       else return "Successful"
     },
     submit() {
-      if (this.check() === "Evaluation") {
-        ElMessage({
-          message: 'The evaluation setting has not been fully configured yet.',
-          type: "warning"
-        })
-      } else if (this.check() === "Parameter") {
-        if (this.$store.state.parames.localParames.population === null) {
-          ElMessage({
-            message: "The Population(N)'s parameter cannot be zero.",
-            type: "warning"
-          })
-        } else {
-          ElMessage({
-            message: "'The Days's parameter cannot be zero.",
-            type: "warning"
-          })
-        }
-      }
-      else if (this.check() === "Successful") {
-        ElMessage({
-          message: 'Submission successful',
-          type: 'success',
-        })
-        this.$store.dispatch('getPredictDataAsync', {
-          parames: this.$store.state.parames,
-          ModelData: this.$store.state.ModelData,
-          evaluation_setting: this.$store.state.EvaluationDate
-        });
-      }
-      // this.$store.dispatch('getPredictDataAsync', {
-      //   parames: this.$store.state.parames,
-      //   ModelData: this.$store.state.ModelData,
-      //   evaluation_setting: this.$store.state.EvaluationDate
-      // });
+      // if (this.check() === "Evaluation") {
+      //   ElMessage({
+      //     message: 'The evaluation setting has not been fully configured yet.',
+      //     type: "warning"
+      //   })
+      // } else if (this.check() === "Parameter") {
+      //   if (this.$store.state.parames.localParames.population === null) {
+      //     ElMessage({
+      //       message: "The Population(N)'s parameter cannot be zero.",
+      //       type: "warning"
+      //     })
+      //   } else {
+      //     ElMessage({
+      //       message: "'The Days's parameter cannot be zero.",
+      //       type: "warning"
+      //     })
+      //   }
+      // }
+      // else if (this.check() === "Successful") {
+      //   ElMessage({
+      //     message: 'Submission successful',
+      //     type: 'success',
+      //   })
+      //   this.$store.dispatch('getPredictDataAsync', {
+      //     parames: this.$store.state.parames,
+      //     ModelData: this.$store.state.ModelData,
+      //     evaluation_setting: this.$store.state.EvaluationDate
+      //   });
+      // }
+      this.$store.dispatch('getSimulationPredictDataAsync', {
+        parames: this.$store.state.parames,
+        ModelData: this.$store.state.ModelData,
+        // evaluation_setting: this.$store.state.EvaluationDate
+      });
       // this.$store.state.EvaluationDate.TruthData.select=null
       // this.$store.state.EvaluationDate.StartDay=null
       // this.$store.state.EvaluationDate.EvaluatedState.select=null

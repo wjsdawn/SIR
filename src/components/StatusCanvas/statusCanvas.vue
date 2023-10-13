@@ -186,9 +186,7 @@ export default {
     },
     statusComponentList: {
       handler(curVal, oldVal) {
-        this.$store.state.evaluatedState = this.statusComponentList.map(dict => dict.statusType)
         console.log("statusComponent改变", this.statusComponentList);
-        console.log(this.statusComponentList.map(dict => dict.statusType))
       },
       deep: true
     },
@@ -278,7 +276,6 @@ export default {
           allPorts.push(value)
         }
       });
-      console.log(allPorts)
       for (let i = 0; i < 3; i++) {
         let x = allPorts[3 + i * 4].parentX + allPorts[3 + i * 4].x
         let y = allPorts[3 + i * 4].parentY + allPorts[3 + i * 4].y
@@ -310,7 +307,7 @@ export default {
       that.setTransitionMatrix();
       console.log(that.ModelData);
       that.$store.commit('setModelData', that.ModelData)
-      console.log(that.$store.state.ModelData);
+      console.log("发送的模型数据", that.$store.state.ModelData);
     },
     setStatusNumber() {
       let that = this;
@@ -360,11 +357,11 @@ export default {
       this.statusMonitor.count += 1;
       this.statusMonitor.id = id;
     },
-    deleteStatus(id){
+    deleteStatus(id) {
       let that = this;
-      that.statusComponentList.forEach((component,i)=>{
-        if(component.id==id){
-          that.statusComponentList.splice(i,1)
+      that.statusComponentList.forEach((component, i) => {
+        if (component.id == id) {
+          that.statusComponentList.splice(i, 1)
         }
       })
     },
@@ -407,7 +404,7 @@ export default {
     },
     componentConnect(e) {
       let that = this
-      console.log("绘制连接线")
+      //绘制连线
       let container = d3.select("#blue-editor")
       // that.line = new statusLine2(container)
       // console.log(e);
@@ -574,6 +571,7 @@ export default {
   height: 250px;
   background: azure;
 }
+
 #lineForm {
   position: absolute;
   top: 30px;

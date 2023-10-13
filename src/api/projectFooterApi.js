@@ -1,11 +1,9 @@
 import { axiosInstance } from './config';
 // 获取banner
-export const getPredictDataRequest = (param) => {
+export const getSimulationPredictDataRequest = (param) => {
     console.log(param)
-    return true
-    // return axiosInstance.post('/getPredictData', {
-    //     params: param['parames'],
-    //     modelData: param['ModelData'],
-    //     evaluation_setting : param['evaluation_setting']
-    // });
+    return axiosInstance.post('/getSimulationPredictData', {
+        params: param['parames'],
+        modelData: param['ModelData'],
+    });
 };

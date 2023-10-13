@@ -3,7 +3,8 @@
     <div class="evaluation_infectious" id="evaluation_infectious">
       <div class="infectious-header">
         <div class="infectious-title" id="infectious-title">Evaluation Setting</div>
-        <el-button v-if="$store.state.isShowSubmit" type="danger" size="small">Submit <el-icon class="el-icon--right">
+        <el-button v-if="$store.state.isShowSubmit" type="danger" size="small" @click="submit">
+          Evaluate <el-icon class="el-icon--right">
             <check />
           </el-icon>
         </el-button>
@@ -11,7 +12,7 @@
       <div class="infectious-container" id="infectious-container">
         <div class="evaluation-setting">
           <div class="evaluation-params">Truth Data</div>
-          <div class="evaluation-value"><el-select v-model="$store.state.EvaluationDate.TruthData.select" clearable
+          <div class="evaluation-value"><el-select v-model="EvaluationDate.TruthData.select" clearable
               placeholder="Select" style="flex: 1.2">
               <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
@@ -34,19 +35,17 @@
         <div class="evaluation-setting">
           <div class="evaluation-params">Start Day</div>
           <div class="evaluation-value">
-            <el-date-picker v-model="$store.state.EvaluationDate.StartDay" type="date" placeholder="Pick a day"
-              style="width: 100%" />
+            <el-date-picker v-model="EvaluationDate.StartDay" type="date" placeholder="Pick a day" style="width: 100%" />
           </div>
         </div>
         <div class="evaluation-setting">
           <div class="evaluation-params">Evaluated State</div>
           <div class="evaluation-value" id="evaluated-state">
-            <el-input v-model="$store.state.EvaluationDate.EvaluatedState.evaluationPre" placeholder="表达式"
-              class="input-with-select">
+            <el-input v-model="EvaluationDate.EvaluatedState.evaluationPre" placeholder="表达式" class="input-with-select">
               <template #prepend>
-                <el-select v-model="$store.state.EvaluationDate.EvaluatedState.select" placeholder="Select">
-                  <el-option v-for="(item, index) in $store.state.evaluatedState" :label="item" :key="index"
-                    :value="index" />
+                <el-select v-model="EvaluationDate.EvaluatedState.select" placeholder="Select">
+                  <el-option v-for="(item, index) in  $store.state.evaluatedState" :label="item" :key="index"
+                    :value="item" />
                 </el-select>
               </template>
             </el-input>
@@ -54,9 +53,8 @@
         </div>
         <div class="evaluation-setting">
           <div class="evaluation-params">Metrics</div>
-          <div class="evaluation-value"><el-checkbox label="MAPE" size="large"
-              v-model="$store.state.EvaluationDate.Metrics.MAPE" />
-            <el-checkbox label="RMSE" size="large" v-model="$store.state.EvaluationDate.Metrics.RMSE" />
+          <div class="evaluation-value"><el-checkbox label="MAPE" size="large" v-model="EvaluationDate.Metrics.MAPE" />
+            <el-checkbox label="RMSE" size="large" v-model="EvaluationDate.Metrics.RMSE" />
           </div>
         </div>
       </div>
@@ -72,6 +70,7 @@
 import drawLineChart from './evaluationHelp';
 import Bus from '@/components/EventBus';
 import evaluationGraph from './evaluationGraph.vue';
+import { axiosInstance } from '../../api/config'
 import {
   ArrowDown,
   Check, Search
@@ -87,6 +86,22 @@ export default {
   },
   data() {
     return {
+      EvaluationDate: {
+        TruthData: {
+          upload: false,
+          select: "",
+          file: null
+        },
+        StartDay: "",
+        EvaluatedState: {
+          select: "",
+          evaluationPre: ""
+        },
+        Metrics: {
+          MAPE: false,
+          RMSE: false
+        }
+      },
       fileList: [],
       tableData: [
         {
@@ -125,38 +140,46 @@ export default {
   mounted() {
   },
   computed: {
-    Search() {
-      return Search
-    },
-    lineChartData() {
-      // console.log('computed值', this.$store.state.predictData);
-      return this.$store.state.evaluation_p;
-    },
-    // MAPE() {
-    //   return this.$store.state.MAPE;
+    // ModelData() {
+    //   return this.$store.state.ModelData;
     // },
   },
   methods: {
-    handleCommand() {
-
+    submit() {
+      this.$store.commit('setEvaluation', this.EvaluationDate)
+      this.$store.dispatch('getEvaluationPredictDataAsync', {
+        evaluation_setting: this.EvaluationDate
+      });
+      this.EvaluationDate.TruthData.upload = false
+      this.EvaluationDate.TruthData.file = null
     },
     handleChange(file) {
-      let Data = new FormData()//创建一个表单
-      Data.append("file", file.raw)
+      // let Data = new FormData()//创建一个表单
+      // Data.append("file", file.raw)
       //状态变更
-      this.$store.state.EvaluationDate.TruthData.upload = true
-      this.$store.state.EvaluationDate.TruthData.select = null
-      this.$store.state.EvaluationDate.TruthData.file = Data
-      //
+      const reader = new FileReader();
+      reader.readAsDataURL(file.raw)
+      reader.onload = () => {
+        this.EvaluationDate.TruthData = {
+          upload: true,
+          select: null,
+          file: reader.result
+        }
+      }
       ElMessage({
         message: 'File uploaded successfully',
         type: 'success',
       })
-      console.log(Data.get("file"))
-      console.log(file)
     }
   },
   watch: {
+    // ModelData: {
+    //   handler(nval) {
+    //     console.log(this.EvaluationDate)
+    //   },
+    //   deep: true,
+    //   imemediate: true,
+    // },
   },
 };
 </script>
