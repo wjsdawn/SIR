@@ -1,6 +1,7 @@
 .layout{
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 .layout > .top{
     flex: 0.3;
