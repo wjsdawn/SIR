@@ -4,14 +4,16 @@
       <div id="simulation-title">Simulation</div>
       <div id="simulation-button">
         <div v-if="!reset" style="display: flex; align-items: center">
-          <img src="../../assets/bofang.png" v-if="!isPlay" @click="playProcess" alt=""/>
-          <img src="../../assets/zanting.png" v-else @click="pauseProcess" alt=""/>
+          <img src="../../assets/bofang.png" v-if="!isPlay" @click="playProcess" alt="" />
+          <img src="../../assets/zanting.png" v-else @click="pauseProcess" alt="" />
         </div>
         <div style="display: flex; align-items: center" v-else>
-          <img src="../../assets/重置.png" @click="resetProcess" alt=""/>
+          <img src="../../assets/重置.png" @click="resetProcess" alt="" />
         </div>
-        <img class="simulation-img" src="../../assets/prev-step.png" alt="" @mousedown="startBackward" @mouseup="stopRepeat"/>
-        <img class="simulation-img" src="../../assets/next-step.png" alt="" @mousedown="forwardProgress" @mouseup="stopRepeat"/>
+        <img class="simulation-img" src="../../assets/prev-step.png" alt="" @mousedown="startBackward"
+          @mouseup="stopRepeat" />
+        <img class="simulation-img" src="../../assets/next-step.png" alt="" @mousedown="forwardProgress"
+          @mouseup="stopRepeat" />
       </div>
     </div>
     <div class="simulation-container" id="simulation-container"></div>
@@ -68,7 +70,7 @@ export default {
   },
   mounted() {
     this.intervalId = setInterval(this.processAnimate, 500);
-        //渲染完成后，清空数组，避免不同阶段push的堆积
+    //渲染完成后，清空数组，避免不同阶段push的堆积
     this.stateNum = 0;
   },
   computed: {
@@ -79,12 +81,12 @@ export default {
   methods: {
     processAnimate() {
       this.time1.push(this.time[this.index]);
-      for(let i=0;i<this.numbers.length;i++)  this.sereiesData[i].data.push(this.numbers[i][this.index])
+      for (let i = 0; i < this.numbers.length; i++)  this.sereiesData[i].data.push(this.numbers[i][this.index])
       drawStackChart(
-          'simulation-container',
-          this.names,
-          this.time1,
-          this.sereiesData
+        'simulation-container',
+        this.names,
+        this.time1,
+        this.sereiesData
       );
       this.index += 1;
       if (this.index === this.time.length) {
@@ -98,13 +100,12 @@ export default {
       this.time1.pop();
       for (let item of this.sereiesData) item.data.pop();
       drawStackChart(
-          'simulation-container',
-          this.names,
-          this.time1,
-          this.sereiesData
+        'simulation-container',
+        this.names,
+        this.time1,
+        this.sereiesData
       );
-      if(this.index===0)
-      {
+      if (this.index === 0) {
         clearInterval(this.intervalId);
       }
     },
@@ -140,8 +141,7 @@ export default {
       }
     },
     stopRepeat() {
-      if (!this.isPlay)
-      {
+      if (!this.isPlay) {
         //事件之停止前进或者后退点击
         Bus.emit('stop-repeat')
         clearInterval(this.intervalId);
@@ -156,52 +156,43 @@ export default {
       }
     },
     predictDataProcess(predictData) {
+      //初始化数据
+      this.reset = false;
+      this.isPlay = true;
+      this.names = [];
+      this.time = [];
+      this.time1 = [];
+      this.index = 0;
+      this.numbers = [];
+      this.sereiesData = [];
+
       var pre = predictData;
       var T = this.$store.state.parames['localParames']['days'];
+      for (let i = 1; i <= T; i++) this.time.push(i);
       //处理类型名
-      var num_init = this.$store.state.ModelData['Number_initial'];
-      for (var key in num_init) {
-        this.names.push(key);
-      }
-      //构造类型 人数 字典
-      for (var j = 0; j < this.names.length; j++) {
-        this.numbers[j] = []
-        for (var i = 0; i < pre.length; i++) {
-          this.numbers[j].push(pre[i][j]);
-        }
-      }
-      for (var m = 1; m <= T; m++) {
-        this.time.push(m);
-      }
-    },
-    sereiesDataProcess() {
+      this.names = Object.keys(this.$store.state.ModelData['Number_initial']);
+
+      console.log("预测数据得到", pre);
+      console.log("日期得到", this.time);
+      console.log("名称得到", this.names);
+      for (let i = 0; i < this.names.length; i++)    this.numbers.push(pre[this.names[i]]);
+
       for (var i = 0; i < this.names.length; i++) {
         var item = {
           name: this.names[i],
           type: 'line',
           stack: 'Total',
-          data: this.numbers[i],
+          data: [],
         };
         this.sereiesData.push(item);
       }
+      this.intervalId = setInterval(this.processAnimate, 500);
     },
   },
   watch: {
     stackChartData: {
       handler(nval) {
         this.predictDataProcess(nval)
-        this.sereiesDataProcess()
-        drawStackChart(
-            'simulation-container',
-            this.names,
-            this.time,
-            this.sereiesData
-        );
-        this.names = [];
-        this.numbers = {};
-        this.time = [];
-        this.stateNum = 0;
-        this.sereiesData = [];
       },
       deep: true,
       imemediate: true,
@@ -217,26 +208,31 @@ export default {
   flex-direction: column;
 }
 
-.simulation > .simulation-header {
+.simulation>.simulation-header {
   flex: 0.2;
   display: flex;
 }
+
 img {
   width: 2.5em;
   height: 2.5em;
 }
+
 .simulation-img {
   margin-left: 5%;
 }
-.simulation > .simulation-container {
+
+.simulation>.simulation-container {
   flex: 4;
 }
+
 #simulation-title {
   width: 85%;
   height: 100%;
   text-align: left;
   font-size: 1.5em;
 }
+
 #simulation-button {
   height: 100%;
   width: 15%;

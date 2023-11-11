@@ -2,6 +2,10 @@ import * as echarts from 'echarts'
 let drawStackChart = (container, names,time,sereiesData) => {
   var Chart = echarts.init(document.getElementById(container))
   var option = {
+    // textStyle: {
+    //   fontWeight: 'bold',// 设置名称的字体加粗
+    //   fontSize: 16 // 设置名称的字体大小
+    // },
       tooltip: {
         trigger: 'axis',
         backgroundColor: 'rgba(5, 58, 87, 0.7)',
@@ -19,7 +23,6 @@ let drawStackChart = (container, names,time,sereiesData) => {
     legend: {
       data: names,
       type: 'scroll',
-
       show: true,
       left: 100,
       top: 1,

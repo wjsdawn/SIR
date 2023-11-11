@@ -38,9 +38,10 @@
     flex: 1.5;
     display: flex;
     align-items: center;
-    justify-content: space-around;
 }
-.evaluation-graph {
+
+.evaluation-Graph{
     flex: 6;
-    background-color: rgb(43, 141, 226);
+    background-color: antiquewhite;
 }
+

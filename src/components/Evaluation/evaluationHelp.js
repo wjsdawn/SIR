@@ -1,6 +1,6 @@
 import * as echarts from 'echarts'
 let drawLineChart = (container,time,data_T,data_P) => {
-    var Chart = echarts.init(document.getElementById(container))
+    var Chart = echarts.init(document.getElementsByClassName(container))
     var option = {
         tooltip:{
             trigger: 'axis',

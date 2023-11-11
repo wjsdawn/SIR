@@ -2,17 +2,15 @@ export default {
 
   //更新中间的模型视图数据
   getSimulationPredictData(state, payload) {
-    // state.evaluationList.push({});
-    // state.predictData = payload.preData
-    // state.evaluation_p = payload.evaluation_p
-    // state.MAPE = payload.MAPE
-    
+   state.predictData = payload;
+  
   },
 
   //更新评估视图列表数据
   getEvaluationPredictData(state, payload)
   {
-      state.evaluationList.push({});
+    console.log("预测返回数据为", payload);
+      state.evaluationList.push(payload);
   },
 
 
@@ -24,7 +22,7 @@ export default {
   
   setEvaluation(state, payload)
   {
-    state.EvaluationDate=payload
+    state.EvaluationData=payload
   },
 
   setParames(state, payload){

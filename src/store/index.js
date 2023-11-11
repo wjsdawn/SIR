@@ -6,8 +6,11 @@ const state = {
   scatterChartData: null,
   pieChartData:null,
   barChartData: null,
-  lineIsdDrawing:false,
+  lineIsdDrawing: false,
+  //装预测模拟数据
   predictData: null,
+
+
   SliderArr: [[], [], [], [], []],
   parames: {
     localParames: {
@@ -58,7 +61,7 @@ const state = {
 
   startMaxDay: null,//参数面板startDay的最大值
   isShowSubmit:false,//是否展现参数设置面板的提交按钮
-  EvaluationDate:{
+  EvaluationData:{
     TruthData:{
       upload:false,
       select:"",
