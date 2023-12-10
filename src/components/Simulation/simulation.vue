@@ -69,6 +69,9 @@ export default {
     };
   },
   mounted() {
+    Bus.on('submit-parameter', () => {
+      this.pauseProcess();
+    });
     this.intervalId = setInterval(this.processAnimate, 500);
     //渲染完成后，清空数组，避免不同阶段push的堆积
     this.stateNum = 0;
@@ -89,6 +92,7 @@ export default {
         this.sereiesData
       );
       this.index += 1;
+      this.$store.state.simulationIndex=this.index;
       if (this.index === this.time.length) {
         this.reset = true;
         this.isPlay = false;
@@ -97,6 +101,7 @@ export default {
     },
     backAnimate() {
       this.index -= 1;
+      this.$store.state.simulationIndex=this.index;
       this.time1.pop();
       for (let item of this.sereiesData) item.data.pop();
       drawStackChart(
@@ -209,7 +214,7 @@ export default {
 }
 
 .simulation>.simulation-header {
-  flex: 0.2;
+  height: 5%;
   display: flex;
 }
 
@@ -223,7 +228,7 @@ img {
 }
 
 .simulation>.simulation-container {
-  flex: 4;
+  height: 95%;
 }
 
 #simulation-title {

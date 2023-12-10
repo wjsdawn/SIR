@@ -70,7 +70,7 @@
 import drawLineChart from './evaluationHelp';
 import Bus from '@/components/EventBus';
 import evaluationGraph from './evaluationGraph.vue';
-import { axiosInstance } from '../../api/config'
+import { axiosInstance } from '@/api/config';
 import {
   ArrowDown,
   Check, Search
@@ -140,9 +140,7 @@ export default {
   mounted() {
   },
   computed: {
-    // ModelData() {
-    //   return this.$store.state.ModelData;
-    // },
+
   },
   methods: {
     submit() {
@@ -152,6 +150,7 @@ export default {
       });
       this.EvaluationData.TruthData.upload = false
       this.EvaluationData.TruthData.file = null
+      Bus.emit('submit-parameter');
     },
     handleChange(file) {
       // let Data = new FormData()//创建一个表单

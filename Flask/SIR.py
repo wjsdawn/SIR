@@ -17,7 +17,8 @@ def generate_random_list(length):
         random_list.append(random.randint(0, 50))
     return random_list
 
-#定义全局变量days 
+
+# 定义全局变量days
 days = 0
 
 
@@ -51,16 +52,24 @@ def evaluation_pre():
             # 对base64编码进行解码
             f.write(base64.b64decode(data))
         data1 = pd.read_csv("temp.csv")
-        #打印上传的csv文件
+        # 打印上传的csv文件
         print(data1)
         print(val)
     else:
         print(val)
-    #返回两个值 一个真实值数组，一个预测值数组
-    #可以添加字段 比如参数面板的数据 或者 MAPE字段等
+    # 返回两个值 一个真实值数组，一个预测值数组
+    # 可以添加字段 比如参数面板的数据 或者 MAPE字段等
     result = {
         'data_T': generate_random_list(days),
-        'data_P': generate_random_list(days)
+        'data_P': generate_random_list(days),
+        'MAPE': {
+            'flag': "true",
+            'value': random.randint(0, 50)
+        },
+        'RMSE': {
+            'flag': "true",
+            'value': random.randint(0, 50)
+        },
     }
     return result
 

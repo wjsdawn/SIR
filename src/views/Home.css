@@ -19,15 +19,15 @@
     margin-top: -1px;
 }
 .middle > .middle-left{
-    flex: 2.5;
+    width:30%;
     border: 1px solid #666666;
 }
 .middle > .middle-middle{
-    flex: 4.5;
+    width: 50%;
     border: 1px solid #666666;
 }
 .middle > .middle-right{
-    flex: 1.6;
+    width: 20%;
     border: 1px solid #666666;
 }
 

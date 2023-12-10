@@ -33,7 +33,7 @@
       </div>
       
       <div class="add" v-for="(item, index) in this.$store.state.SliderArr[0]" :key="index">
-        <el-input class="title"  v-model="localParames['names1'][index]" placeholder="输入参数名" clearable></el-input>
+        <el-input  class="title"  v-model="localParames['names1'][index]" placeholder="输入参数名" clearable></el-input>
         <el-slider
           class="sli"
           input-size="mini"

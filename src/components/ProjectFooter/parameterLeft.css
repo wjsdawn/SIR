@@ -45,8 +45,6 @@
   }
  .population>.sli-population {
     flex:3;
-    /* display: flex; */
-    /* width:50% */
  }
  .days>.sli-days {
     flex:3;
