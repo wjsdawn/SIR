@@ -74,3 +74,5 @@ export default {
 
 <style scoped src='./parameterRight1.css'>
 </style>
+<style scoped src='../../assets/styles/slider.css'>
+</style>

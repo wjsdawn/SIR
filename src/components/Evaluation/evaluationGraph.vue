@@ -159,16 +159,13 @@ export default {
   watch: {
     listItem: {
       handler(newVal) {
-        console.log("我的长度",this.count)
-        console.log("数组长度",newVal.length)
-        // console.log("我的数组长度",newVal.length)
         if (this.count+1 < newVal.length) {
-          this.deleteMonitor()
-        } else  if (this.count+1 === newVal.length) {
           this.myOption.xAxis.data = this.time;
           this.myOption.series[0].data = this.data_P;
           this.myOption.series[1].data = this.data_T;
           option && this.myChart.setOption(this.myOption);
+          this.deleteMonitor()
+        } else  if (this.count+1 === newVal.length) {
           console.log("添加监听")
           this.addMonitor();
         }

@@ -21,38 +21,38 @@
     width:15px;
     height:15px;
    }
-   /* 右边按钮的外部大框和内部小框样式 */
-  ::v-deep .el-input__inner {
-    background-color: transparent !important;
-    border-color: #80ffff;
-    height: 20px;
-    width: 5px  !important;
-    font-size: 1px;
-    text-align: center;
-   } 
-   /* 控制右边输入框长度 */
-   ::v-deep .el-input-number.el-input-number--mini.is-without-controls.el-slider__input{
-      width:50px;
-      margin-right: 7px;
-   }
-   /* 每一个新增参数的边框样式 */
-   .title ::v-deep .el-input__wrapper {
-    box-shadow: 0 0 0 0px;     /*把输入框的原来的四方框宽度，都为0就去掉四方框 */
-    flex-grow: 1;  /* 把输入框中小输入框长度 */
-     /* border-top-width: 0px;
-    border-left-width: 0px;
-    border-right-width: 0px;
-    border-bottom-width: 1px; */
-   }
-   .sli  .el-input__wrapper {
-     /*box-shadow: 0 0 0 0px;    把输入框的原来的四方框宽度，都为0就去掉四方框 */
-    flex-grow: 1;  /* 把输入框中小输入框长度 */
-     /* border-top-width: 0px;
-    border-left-width: 0px;
-    border-right-width: 0px;
-    border-botto
-    m-width: 1px; */
-   }
+  /* !* 右边按钮的外部大框和内部小框样式 *!*/
+  /*::v-deep .el-input__inner {*/
+  /*  background-color: transparent !important;*/
+  /*  border-color: #80ffff;*/
+  /*  height: 20px;*/
+  /*  width: 5px  !important;*/
+  /*  font-size: 1px;*/
+  /*  text-align: center;*/
+  /* } */
+  /* !* 控制右边输入框长度 *!*/
+  /* ::v-deep .el-input-number.el-input-number--mini.is-without-controls.el-slider__input{*/
+  /*    width:50px;*/
+  /*    margin-right: 7px;*/
+  /* }*/
+  /* !* 每一个新增参数的边框样式 *!*/
+  /* .title ::v-deep .el-input__wrapper {*/
+  /*  box-shadow: 0 0 0 0px;     !*把输入框的原来的四方框宽度，都为0就去掉四方框 *!*/
+  /*  flex-grow: 1;  !* 把输入框中小输入框长度 *!*/
+  /*   !* border-top-width: 0px;*/
+  /*  border-left-width: 0px;*/
+  /*  border-right-width: 0px;*/
+  /*  border-bottom-width: 1px; *!*/
+  /* }*/
+  /* .sli  .el-input__wrapper {*/
+  /*   !*box-shadow: 0 0 0 0px;    把输入框的原来的四方框宽度，都为0就去掉四方框 *!*/
+  /*  flex-grow: 1;  !* 把输入框中小输入框长度 *!*/
+  /*   !* border-top-width: 0px;*/
+  /*  border-left-width: 0px;*/
+  /*  border-right-width: 0px;*/
+  /*  border-botto*/
+  /*  m-width: 1px; *!*/
+  /* }*/
    /* 删除按钮的样式 */
    ::v-deep .el-button.el-button--small.delete{
     border-width: 0px;

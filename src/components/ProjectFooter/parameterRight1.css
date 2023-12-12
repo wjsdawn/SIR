@@ -7,8 +7,6 @@
 .parameterRight1>.parameterRight1-header{
     flex: 1;
     display: flex;
-    width: 100%;
-    height: 100%;
     display: flex;
 }
 .parameterRight1>.parameterRight1-container{
@@ -55,73 +53,73 @@
    flex:0.2;
 }
 /* 滑道样式 */
-::v-deep .el-slider__runway.show-input{
-   background-image: linear-gradient(to right,#000718,#23b7cb);
-   width: 90px !important;
-   height: 7px;
-   margin-right: 10px;
-}
- /*按钮样式*/
-::v-deep .el-slider__button {
-   border: 1px solid #80ffff;
-   background-image: radial-gradient(#000718,#23b7cb);
-   width:15px;
-   height:15px;
-  }
-  /* 右边按钮的外部大框和内部小框样式 */
- ::v-deep .el-input__inner {
-   background-color: transparent !important;
-   border-color: #80ffff;
-   height: 20px;
-   font-size: 1px;
-   text-align: center;
-  } 
-  /* 控制右边输入框长度 */
-  ::v-deep .el-input-number.el-input-number--mini.is-without-controls.el-slider__input{
-     width:50px;
-     margin-right: 7px;
-  }
-  /* 控制并排三个输入框的样式和间距 */
-  .title ::v-deep .el-input__wrapper{
-   box-shadow: 0 0 0 0px;
-   flex-grow: 1; 
-   padding-right: 1px;
-  }
-  .title ::v-deep .el-input__inner{
-   /* margin-right: 5px; */
-   margin-left: 10px;
-  }
-  .input_bf ::v-deep .el-input__wrapper {
-   box-shadow: 0 0 0 0px;   /*把输入框的原来的四方框宽度，都为0就去掉四方框 */
-   flex-grow: 1;  /* 把输入框中小输入框长度 */
-   margin-left: 8px;
-   border-radius: 0;
-   border-style:solid;
-   border-top-width: 0px;
-   border-left-width: 0px;
-   border-right-width: 0px;
-   border-bottom-width: 1px; 
-  }
-  .input_af ::v-deep .el-input__wrapper {
-   box-shadow: 0 0 0 0px;   /*把输入框的原来的四方框宽度，都为0就去掉四方框 */
-   flex-grow: 1;  /* 把输入框中小输入框长度 */
-   margin-right: 6px;
-   border-radius: 0;
-   border-style:solid;
-   border-top-width: 0px;
-   border-left-width: 0px;
-   border-right-width: 0px;
-   border-bottom-width: 1px; 
-  }
-  /* 去掉删除按钮边框和左右边距离 */
- ::v-deep .el-button.el-button--small.delete{
-   border-width: 0px;
-   padding-left: 0px;
-   padding-right: 7px;
-  }
- .sidebar-wrapper .el-scrollbar__wrap {
-   overflow-x: hidden;
- }
- .is-horizontal {
-   display: none;
- }
+/*::v-deep .el-slider__runway.show-input{*/
+/*   background-image: linear-gradient(to right,#000718,#23b7cb);*/
+/*   width: 90px !important;*/
+/*   height: 7px;*/
+/*   margin-right: 10px;*/
+/*}*/
+/* !*按钮样式*!*/
+/*::v-deep .el-slider__button {*/
+/*   border: 1px solid #80ffff;*/
+/*   background-image: radial-gradient(#000718,#23b7cb);*/
+/*   width:15px;*/
+/*   height:15px;*/
+/*  }*/
+/*  !* 右边按钮的外部大框和内部小框样式 *!*/
+/* ::v-deep .el-input__inner {*/
+/*   background-color: transparent !important;*/
+/*   border-color: #80ffff;*/
+/*   height: 20px;*/
+/*   font-size: 1px;*/
+/*   text-align: center;*/
+/*  } */
+/*  !* 控制右边输入框长度 *!*/
+/*  ::v-deep .el-input-number.el-input-number--mini.is-without-controls.el-slider__input{*/
+/*     width:50px;*/
+/*     margin-right: 7px;*/
+/*  }*/
+/*  !* 控制并排三个输入框的样式和间距 *!*/
+/*  .title ::v-deep .el-input__wrapper{*/
+/*   box-shadow: 0 0 0 0px;*/
+/*   flex-grow: 1; */
+/*   padding-right: 1px;*/
+/*  }*/
+/*  .title ::v-deep .el-input__inner{*/
+/*   !* margin-right: 5px; *!*/
+/*   margin-left: 10px;*/
+/*  }*/
+/*  .input_bf ::v-deep .el-input__wrapper {*/
+/*   box-shadow: 0 0 0 0px;   !*把输入框的原来的四方框宽度，都为0就去掉四方框 *!*/
+/*   flex-grow: 1;  !* 把输入框中小输入框长度 *!*/
+/*   margin-left: 8px;*/
+/*   border-radius: 0;*/
+/*   border-style:solid;*/
+/*   border-top-width: 0px;*/
+/*   border-left-width: 0px;*/
+/*   border-right-width: 0px;*/
+/*   border-bottom-width: 1px; */
+/*  }*/
+/*  .input_af ::v-deep .el-input__wrapper {*/
+/*   box-shadow: 0 0 0 0px;   !*把输入框的原来的四方框宽度，都为0就去掉四方框 *!*/
+/*   flex-grow: 1;  !* 把输入框中小输入框长度 *!*/
+/*   margin-right: 6px;*/
+/*   border-radius: 0;*/
+/*   border-style:solid;*/
+/*   border-top-width: 0px;*/
+/*   border-left-width: 0px;*/
+/*   border-right-width: 0px;*/
+/*   border-bottom-width: 1px; */
+/*  }*/
+/*  !* 去掉删除按钮边框和左右边距离 *!*/
+/* ::v-deep .el-button.el-button--small.delete{*/
+/*   border-width: 0px;*/
+/*   padding-left: 0px;*/
+/*   padding-right: 7px;*/
+/*  }*/
+/* .sidebar-wrapper .el-scrollbar__wrap {*/
+/*   overflow-x: hidden;*/
+/* }*/
+/* .is-horizontal {*/
+/*   display: none;*/
+/* }*/
