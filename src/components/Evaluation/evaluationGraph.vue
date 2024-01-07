@@ -13,8 +13,8 @@
     <div class="evaluation-Graph">
     </div>
     <div id="evaluation-metrics">
-      <div v-if="item['MAPE']['flag']==='true'">MAPE:{{item['MAPE']['value']}}%</div>
-      <div v-if="item['RMSE']['flag']==='true'">RMSE:{{item['RMSE']['value']}}%</div>
+      <div v-if="item['MAPE']['flag']===true">MAPE:{{item['MAPE']['value']}}%</div>
+      <div v-if="item['RMSE']['flag']===true">RMSE:{{item['RMSE']['value']}}%</div>
     </div>
   </div>
 </template>
@@ -143,6 +143,8 @@ export default {
 
     this.addMonitor();
     this.intervalId = setInterval(this.processAnimateInit, 500);
+    console.log(this.count)
+    console.log(this.item)
 
   },
   computed: {

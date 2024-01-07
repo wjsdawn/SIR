@@ -119,20 +119,20 @@ export default {
       ],
       options: [
         {
-          value: '易感者',
-          label: '易感者',
+          value: 'Susceptible',
+          label: 'Susceptible',
         },
         {
-          value: '潜伏者',
-          label: '潜伏者',
+          value: 'Exposed',
+          label: 'Exposed',
         },
         {
-          value: '感染者',
-          label: '感染者',
+          value: 'Infected',
+          label: 'Infected',
         },
         {
-          value: '移除者',
-          label: '移除者',
+          value: 'Recovered',
+          label: 'Recovered',
         }
       ]
     };

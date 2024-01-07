@@ -1,0 +1,315 @@
+[
+    {
+        "ModelData": {
+            "Number_initial": {
+                "Susceptible": "",
+                "Exposed": "",
+                "Infected": "",
+                "Recovered": ""
+            },
+            "transition": [
+                [
+                    0,
+                    "",
+                    0,
+                    0
+                ],
+                [
+                    0,
+                    0,
+                    "",
+                    0
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    ""
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            ],
+            "N": 4
+        },
+        "params": {
+            "localParames": {
+                "population": null,
+                "days": 3,
+                "names1": [],
+                "values1": []
+            },
+            "epidemicParames": {
+                "Beta": 0,
+                "Alpha": 0,
+                "Gamma": 0,
+                "names2": [],
+                "values2": []
+            },
+            "interventionParames": {
+                "sday": 0,
+                "names3": [],
+                "values3_bf": [],
+                "values3_af": []
+            },
+            "healthParames": {
+                "maxbed": 0,
+                "names4": [],
+                "values4": []
+            },
+            "vaccaineParames": {
+                "vacRate": 0,
+                "effecRare": 0,
+                "names5": [],
+                "values5": []
+            }
+        },
+        "SimulationData": {
+            "Susceptible": [
+                50,
+                4,
+                35
+            ],
+            "Exposed": [
+                31,
+                5,
+                33
+            ],
+            "Infected": [
+                46,
+                0,
+                34
+            ],
+            "Recovered": [
+                19,
+                32,
+                13
+            ]
+        }
+    },
+    {
+        "ModelData": {
+            "Number_initial": {
+                "Susceptible": "",
+                "Exposed": "",
+                "Infected": "",
+                "Recovered": ""
+            },
+            "transition": [
+                [
+                    0,
+                    "",
+                    0,
+                    0
+                ],
+                [
+                    0,
+                    0,
+                    "",
+                    0
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    ""
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            ],
+            "N": 4
+        },
+        "params": {
+            "localParames": {
+                "population": null,
+                "days": 10,
+                "names1": [],
+                "values1": []
+            },
+            "epidemicParames": {
+                "Beta": 0,
+                "Alpha": 0,
+                "Gamma": 0,
+                "names2": [],
+                "values2": []
+            },
+            "interventionParames": {
+                "sday": 0,
+                "names3": [],
+                "values3_bf": [],
+                "values3_af": []
+            },
+            "healthParames": {
+                "maxbed": 0,
+                "names4": [],
+                "values4": []
+            },
+            "vaccaineParames": {
+                "vacRate": 0,
+                "effecRare": 0,
+                "names5": [],
+                "values5": []
+            }
+        },
+        "SimulationData": {
+            "Susceptible": [
+                28,
+                2,
+                19,
+                32,
+                11,
+                21,
+                25,
+                27,
+                30,
+                8
+            ],
+            "Exposed": [
+                28,
+                29,
+                23,
+                4,
+                22,
+                6,
+                23,
+                36,
+                44,
+                44
+            ],
+            "Infected": [
+                24,
+                47,
+                36,
+                30,
+                30,
+                5,
+                50,
+                45,
+                7,
+                0
+            ],
+            "Recovered": [
+                28,
+                40,
+                6,
+                24,
+                39,
+                12,
+                20,
+                9,
+                5,
+                37
+            ]
+        }
+    },
+    {
+        "ModelData": {
+            "Number_initial": {
+                "Susceptible": "",
+                "Exposed": "",
+                "Infected": "",
+                "Recovered": ""
+            },
+            "transition": [
+                [
+                    0,
+                    "",
+                    0,
+                    0
+                ],
+                [
+                    0,
+                    0,
+                    "",
+                    0
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    ""
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            ],
+            "N": 4
+        },
+        "params": {
+            "localParames": {
+                "population": null,
+                "days": 6,
+                "names1": [],
+                "values1": []
+            },
+            "epidemicParames": {
+                "Beta": 0,
+                "Alpha": 0,
+                "Gamma": 0,
+                "names2": [],
+                "values2": []
+            },
+            "interventionParames": {
+                "sday": 0,
+                "names3": [],
+                "values3_bf": [],
+                "values3_af": []
+            },
+            "healthParames": {
+                "maxbed": 0,
+                "names4": [],
+                "values4": []
+            },
+            "vaccaineParames": {
+                "vacRate": 0,
+                "effecRare": 0,
+                "names5": [],
+                "values5": []
+            }
+        },
+        "SimulationData": {
+            "Susceptible": [
+                23,
+                4,
+                25,
+                10,
+                0,
+                0
+            ],
+            "Exposed": [
+                5,
+                6,
+                8,
+                20,
+                19,
+                7
+            ],
+            "Infected": [
+                12,
+                1,
+                43,
+                14,
+                34,
+                27
+            ],
+            "Recovered": [
+                29,
+                43,
+                15,
+                31,
+                31,
+                29
+            ]
+        }
+    }
+]

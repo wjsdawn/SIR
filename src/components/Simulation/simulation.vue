@@ -30,7 +30,7 @@ export default {
       intervalId: null,
       reset: false,
       isPlay: true,
-      names: ['易感者', '潜伏者', '感染者', '移除者'], //各类型人群名
+      names: ['Susceptible', 'Exposed', 'Infected', 'Recovered'], //各类型人群名
       numbers: [
         [9, 8, 7, 7, 6, 4, 2],
         [4, 5, 6, 7, 4, 3, 1],
@@ -42,25 +42,25 @@ export default {
       time1: [],
       sereiesData: [
         {
-          name: '易感者',
+          name: 'Susceptible',
           type: 'line',
           stack: 'Total',
           data: []
         },
         {
-          name: '潜伏者',
+          name: 'Exposed',
           type: 'line',
           stack: 'Total',
           data: [],
         },
         {
-          name: '感染者',
+          name: 'Infected',
           type: 'line',
           stack: 'Total',
           data: [],
         },
         {
-          name: '移除者',
+          name: 'Recovered',
           type: 'line',
           stack: 'Total',
           data: [],

@@ -1,4 +1,5 @@
 import base64
+import json
 
 from flask import Flask, request
 from flask_cors import CORS
@@ -26,17 +27,29 @@ days = 0
 def my():
     global days
     val = request.get_json()
-    print(val)
     # 获取预测天数
     days = val['params']['localParames']['days']
-    print(days)
     # 状态名列表
     name = list(val['modelData']['Number_initial'].keys())
-    print(name)
     result = {}
     for key in name:
         result[key] = generate_random_list(days)
-    print(result)
+    print(val)
+    with open("./result.json", "r", encoding="utf-8") as fp:
+        data = json.load(fp)
+        params = json.dumps(val['params'])
+        # 用于检查是否有重复字典
+        flag = True
+        if len(data) != 0:
+            for item in data:
+                if json.dumps(item['ModelData']) == json.dumps(val['modelData']) and json.dumps(
+                        item['params']) == json.dumps(val['params']):
+                    flag = False
+                    break
+
+        if flag:
+            data.append({"ModelData": val['modelData'], "params": val['params'], "SimulationData": result})
+        json.dump(data, open('./result.json', 'w', encoding='utf-8'), indent=4, ensure_ascii=False)
     return result
 
 
@@ -57,20 +70,22 @@ def evaluation_pre():
         print(val)
     else:
         print(val)
+        print(val["evaluation_setting"]["Metrics"])
     # 返回两个值 一个真实值数组，一个预测值数组
     # 可以添加字段 比如参数面板的数据 或者 MAPE字段等
     result = {
         'data_T': generate_random_list(days),
         'data_P': generate_random_list(days),
         'MAPE': {
-            'flag': "true",
+            'flag': val["evaluation_setting"]["Metrics"]["MAPE"],
             'value': random.randint(0, 50)
         },
         'RMSE': {
-            'flag': "true",
+            'flag': val["evaluation_setting"]["Metrics"]["RMSE"],
             'value': random.randint(0, 50)
         },
     }
+    print(result)
     return result
 
 
