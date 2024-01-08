@@ -63,8 +63,8 @@ export default {
     data() {
     return {
         localParames:{
-          population: null,
-          days: null,
+          population: 0,
+          days: 0,
           names1: [], //接收每个input框的值
           values1: [],
       }

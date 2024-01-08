@@ -1,6 +1,6 @@
 [
     {
-        "ModelData": {
+        "modelData": {
             "Number_initial": {
                 "Susceptible": "",
                 "Exposed": "",
@@ -37,8 +37,8 @@
         },
         "params": {
             "localParames": {
-                "population": null,
-                "days": 3,
+                "population": 0,
+                "days": 7,
                 "names1": [],
                 "values1": []
             },
@@ -67,150 +67,76 @@
                 "values5": []
             }
         },
-        "SimulationData": {
+        "simulationData": {
             "Susceptible": [
+                49,
                 50,
-                4,
-                35
-            ],
-            "Exposed": [
-                31,
-                5,
-                33
-            ],
-            "Infected": [
-                46,
-                0,
-                34
-            ],
-            "Recovered": [
-                19,
-                32,
-                13
-            ]
-        }
-    },
-    {
-        "ModelData": {
-            "Number_initial": {
-                "Susceptible": "",
-                "Exposed": "",
-                "Infected": "",
-                "Recovered": ""
-            },
-            "transition": [
-                [
-                    0,
-                    "",
-                    0,
-                    0
-                ],
-                [
-                    0,
-                    0,
-                    "",
-                    0
-                ],
-                [
-                    0,
-                    0,
-                    0,
-                    ""
-                ],
-                [
-                    0,
-                    0,
-                    0,
-                    0
-                ]
-            ],
-            "N": 4
-        },
-        "params": {
-            "localParames": {
-                "population": null,
-                "days": 10,
-                "names1": [],
-                "values1": []
-            },
-            "epidemicParames": {
-                "Beta": 0,
-                "Alpha": 0,
-                "Gamma": 0,
-                "names2": [],
-                "values2": []
-            },
-            "interventionParames": {
-                "sday": 0,
-                "names3": [],
-                "values3_bf": [],
-                "values3_af": []
-            },
-            "healthParames": {
-                "maxbed": 0,
-                "names4": [],
-                "values4": []
-            },
-            "vaccaineParames": {
-                "vacRate": 0,
-                "effecRare": 0,
-                "names5": [],
-                "values5": []
-            }
-        },
-        "SimulationData": {
-            "Susceptible": [
-                28,
-                2,
-                19,
-                32,
-                11,
-                21,
                 25,
-                27,
-                30,
-                8
+                44,
+                29,
+                3,
+                18
             ],
             "Exposed": [
-                28,
-                29,
-                23,
-                4,
-                22,
-                6,
-                23,
-                36,
-                44,
+                14,
+                38,
+                15,
+                30,
+                45,
+                15,
                 44
             ],
             "Infected": [
-                24,
-                47,
-                36,
-                30,
-                30,
-                5,
-                50,
+                40,
                 45,
-                7,
-                0
+                37,
+                39,
+                15,
+                21,
+                33
             ],
             "Recovered": [
-                28,
-                40,
+                21,
                 6,
+                46,
                 24,
-                39,
-                12,
-                20,
-                9,
+                45,
                 5,
-                37
+                40
             ]
-        }
+        },
+        "evaluation": [
+            {
+                "state": "Susceptible",
+                "result": {
+                    "data_T": [
+                        11,
+                        32,
+                        27
+                    ],
+                    "data_P": [
+                        32,
+                        47,
+                        19,
+                        3,
+                        22,
+                        3,
+                        15
+                    ],
+                    "MAPE": {
+                        "flag": true,
+                        "value": 27
+                    },
+                    "RMSE": {
+                        "flag": true,
+                        "value": 1
+                    }
+                }
+            }
+        ]
     },
     {
-        "ModelData": {
+        "modelData": {
             "Number_initial": {
                 "Susceptible": "",
                 "Exposed": "",
@@ -247,7 +173,7 @@
         },
         "params": {
             "localParames": {
-                "population": null,
+                "population": 0,
                 "days": 6,
                 "names1": [],
                 "values1": []
@@ -277,39 +203,99 @@
                 "values5": []
             }
         },
-        "SimulationData": {
+        "simulationData": {
             "Susceptible": [
-                23,
-                4,
-                25,
-                10,
-                0,
-                0
+                42,
+                12,
+                46,
+                44,
+                50,
+                48
             ],
             "Exposed": [
-                5,
-                6,
-                8,
-                20,
-                19,
-                7
+                42,
+                39,
+                15,
+                50,
+                24,
+                30
             ],
             "Infected": [
-                12,
-                1,
-                43,
-                14,
-                34,
-                27
+                42,
+                50,
+                50,
+                19,
+                50,
+                28
             ],
             "Recovered": [
-                29,
-                43,
-                15,
-                31,
-                31,
-                29
+                33,
+                27,
+                45,
+                49,
+                32,
+                26
             ]
-        }
+        },
+        "evaluation": [
+            {
+                "state": "Susceptible",
+                "result": {
+                    "data_T": [
+                        23,
+                        40,
+                        14,
+                        22,
+                        24,
+                        11
+                    ],
+                    "data_P": [
+                        10,
+                        15,
+                        34,
+                        2,
+                        37,
+                        8
+                    ],
+                    "MAPE": {
+                        "flag": true,
+                        "value": 19
+                    },
+                    "RMSE": {
+                        "flag": false,
+                        "value": 40
+                    }
+                }
+            },
+            {
+                "state": "Exposed",
+                "result": {
+                    "data_T": [
+                        23,
+                        40,
+                        14,
+                        22,
+                        24,
+                        11
+                    ],
+                    "data_P": [
+                        14,
+                        14,
+                        24,
+                        17,
+                        31,
+                        28
+                    ],
+                    "MAPE": {
+                        "flag": true,
+                        "value": 49
+                    },
+                    "RMSE": {
+                        "flag": false,
+                        "value": 1
+                    }
+                }
+            }
+        ]
     }
 ]

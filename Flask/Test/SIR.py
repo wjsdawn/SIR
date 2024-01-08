@@ -1,4 +1,5 @@
 import base64
+import csv
 import json
 
 from flask import Flask, request
@@ -21,12 +22,18 @@ def generate_random_list(length):
 
 # 定义全局变量days
 days = 0
+# 定义全局变量ModelData,params
+modelData = {}
+params = {}
+simulationIndex = -1
 
 
 @app.route('/getSimulationPredictData', methods=['GET', 'POST'])
-def my():
-    global days
+def simulation_pre():
+    global days, modelData, params, SimulationIndex
     val = request.get_json()
+    modelData = val['modelData']
+    params = val['params']
     # 获取预测天数
     days = val['params']['localParames']['days']
     # 状态名列表
@@ -36,26 +43,31 @@ def my():
         result[key] = generate_random_list(days)
     print(val)
     with open("./result.json", "r", encoding="utf-8") as fp:
+        global simulationIndex
         data = json.load(fp)
         params = json.dumps(val['params'])
         # 用于检查是否有重复字典
         flag = True
         if len(data) != 0:
             for item in data:
-                if json.dumps(item['ModelData']) == json.dumps(val['modelData']) and json.dumps(
+                simulationIndex += 1
+                if json.dumps(item['modelData']) == json.dumps(val['modelData']) and json.dumps(
                         item['params']) == json.dumps(val['params']):
                     flag = False
                     break
 
         if flag:
-            data.append({"ModelData": val['modelData'], "params": val['params'], "SimulationData": result})
+            simulationIndex = len(data)
+            data.append(
+                {"modelData": val['modelData'], "params": val['params'], "simulationData": result, "evaluation": []})
         json.dump(data, open('./result.json', 'w', encoding='utf-8'), indent=4, ensure_ascii=False)
     return result
 
 
 @app.route('/getEvaluationPredictData', methods=['GET', 'POST'])
 def evaluation_pre():
-    global days
+    global days, modelData, params, simulationIndex
+    Value = []
     val = request.get_json()
     # upload是否为true 来判断是否有文件上传 如果没有文件上传就用选择的字段 易感者或感染者来使用本地数据
     if val["evaluation_setting"]["TruthData"]["upload"]:
@@ -69,12 +81,30 @@ def evaluation_pre():
         print(data1)
         print(val)
     else:
+        temp = {}
+        path = "./{}.csv".format(val["evaluation_setting"]["TruthData"]["select"])
+        DateIndex = -1
+        print(path)
+        with open(path, "r", encoding="utf-8") as fp:
+            fp.readline()
+            for line in fp:
+                line = line.strip().split(",")
+                temp[line[0]] = int(line[1])
+                Value.append(int(line[1]))
+            keys = list(temp.keys())
+            for index in range(len(keys)):
+                if keys[index] == val["evaluation_setting"]["StartDay"]:
+                    DateIndex = index
+                    break
+        Value = Value[DateIndex:DateIndex + days]
+        print(Value)
+        print(DateIndex)
         print(val)
-        print(val["evaluation_setting"]["Metrics"])
+        print(temp)
     # 返回两个值 一个真实值数组，一个预测值数组
     # 可以添加字段 比如参数面板的数据 或者 MAPE字段等
     result = {
-        'data_T': generate_random_list(days),
+        'data_T': Value,
         'data_P': generate_random_list(days),
         'MAPE': {
             'flag': val["evaluation_setting"]["Metrics"]["MAPE"],
@@ -85,6 +115,11 @@ def evaluation_pre():
             'value': random.randint(0, 50)
         },
     }
+    with open("./result.json", "r", encoding="utf-8") as fp:
+        data = json.load(fp)
+        data[simulationIndex]['evaluation'].append(
+            {"state": val["evaluation_setting"]['EvaluatedState']['select'], "result": result})
+        json.dump(data, open('./result.json', 'w', encoding='utf-8'), indent=4, ensure_ascii=False)
     print(result)
     return result
 

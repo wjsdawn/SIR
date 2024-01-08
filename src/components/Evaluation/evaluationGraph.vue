@@ -51,7 +51,7 @@ export default {
     //开始启动动画
     processAnimate() {
       this.time1.push(this.time[this.index]);
-      this.data_T1.push(this.data_T[this.index]);
+      if(this.index<this.data_T.length)     this.data_T1.push(this.data_T[this.index]);
       this.data_P1.push(this.data_P[this.index]);
       this.index += 1;
       this.myOption.xAxis.data = this.time1;
@@ -65,7 +65,7 @@ export default {
 
     processAnimateInit() {
       this.time1.push(this.time[this.index]);
-      this.data_T1.push(this.data_T[this.index]);
+      if(this.index<this.data_T.length)     this.data_T1.push(this.data_T[this.index]);
       this.data_P1.push(this.data_P[this.index]);
       this.index += 1;
       this.myOption.xAxis.data = this.time1;
@@ -80,7 +80,7 @@ export default {
     backAnimate() {
       this.index -= 1;
       this.time1.pop();
-      this.data_T1.pop();
+      if(this.index<this.data_T1.length) this.data_T1.pop();
       this.data_P1.pop();
       this.myOption.xAxis.data = this.time1;
       this.myOption.series[0].data = this.data_P1;
