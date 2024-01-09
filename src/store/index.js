@@ -65,7 +65,8 @@ const state = {
     TruthData:{
       upload:false,
       select:"",
-      file:null
+      file:null,
+      name:null
     },
     StartDay:"",
     EvaluatedState:{

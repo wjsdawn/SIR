@@ -23,17 +23,20 @@ def generate_random_list(length):
 # 定义全局变量days
 days = 0
 # 定义全局变量ModelData,params
-modelData = {}
-params = {}
 simulationIndex = -1
+path = ""
+
+
+def initialize_global_variable():
+    global simulationIndex
+    simulationIndex = -1
 
 
 @app.route('/getSimulationPredictData', methods=['GET', 'POST'])
 def simulation_pre():
-    global days, modelData, params, SimulationIndex
+    initialize_global_variable()
+    global days, simulationIndex
     val = request.get_json()
-    modelData = val['modelData']
-    params = val['params']
     # 获取预测天数
     days = val['params']['localParames']['days']
     # 状态名列表
@@ -66,41 +69,37 @@ def simulation_pre():
 
 @app.route('/getEvaluationPredictData', methods=['GET', 'POST'])
 def evaluation_pre():
-    global days, modelData, params, simulationIndex
+    global days, simulationIndex, path
     Value = []
+    temp = {}
+    DateIndex = -1
     val = request.get_json()
     # upload是否为true 来判断是否有文件上传 如果没有文件上传就用选择的字段 易感者或感染者来使用本地数据
     if val["evaluation_setting"]["TruthData"]["upload"]:
         prefix = val["evaluation_setting"]["TruthData"]["file"]
         data = prefix.split(',')[1]
-        with open("temp.csv", mode="wb") as f:
+        path = './upload/{}'.format(val["evaluation_setting"]["TruthData"]["name"])
+        with open(path, mode="wb") as f:
             # 对base64编码进行解码
             f.write(base64.b64decode(data))
-        data1 = pd.read_csv("temp.csv")
+        data1 = pd.read_csv(path)
         # 打印上传的csv文件
         print(data1)
         print(val)
     else:
-        temp = {}
         path = "./{}.csv".format(val["evaluation_setting"]["TruthData"]["select"])
-        DateIndex = -1
-        print(path)
-        with open(path, "r", encoding="utf-8") as fp:
-            fp.readline()
-            for line in fp:
-                line = line.strip().split(",")
-                temp[line[0]] = int(line[1])
-                Value.append(int(line[1]))
-            keys = list(temp.keys())
-            for index in range(len(keys)):
-                if keys[index] == val["evaluation_setting"]["StartDay"]:
-                    DateIndex = index
-                    break
-        Value = Value[DateIndex:DateIndex + days]
-        print(Value)
-        print(DateIndex)
-        print(val)
-        print(temp)
+    with open(path, "r", encoding="utf-8") as fp:
+        fp.readline()
+        for line in fp:
+            line = line.strip().split(",")
+            temp[line[0]] = int(line[1])
+            Value.append(int(line[1]))
+        keys = list(temp.keys())
+        for index in range(len(keys)):
+            if keys[index] == val["evaluation_setting"]["StartDay"]:
+                DateIndex = index
+                break
+    Value = Value[DateIndex:DateIndex + days]
     # 返回两个值 一个真实值数组，一个预测值数组
     # 可以添加字段 比如参数面板的数据 或者 MAPE字段等
     result = {

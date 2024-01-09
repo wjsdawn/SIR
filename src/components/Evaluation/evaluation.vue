@@ -90,7 +90,8 @@ export default {
         TruthData: {
           upload: false,
           select: "",
-          file: null
+          file: null,
+          name:null
         },
         StartDay: "",
         EvaluatedState: {
@@ -150,6 +151,7 @@ export default {
       });
       this.EvaluationData.TruthData.upload = false
       this.EvaluationData.TruthData.file = null
+      this.EvaluationData.TruthData.name = null
       Bus.emit('submit-parameter');
     },
     handleChange(file) {
@@ -162,7 +164,8 @@ export default {
         this.EvaluationData.TruthData = {
           upload: true,
           select: null,
-          file: reader.result
+          file: reader.result,
+          name:file.raw.name
         }
       }
       ElMessage({
